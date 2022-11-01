@@ -1,0 +1,68 @@
+v1:
+-----------
+Secretary
+Email: secretary@minland.gov.bd
+Pass: 12345678
+
+Ofiice Assistant(RM) (5)
+Email: asst.rm.munshiganj@gmail.com	
+Pass: 12345678
+
+DC (6)
+Email: dc.munshiganj@gmail.com
+Pass: 12345678
+
+ADC (Revenue) (7)
+Email: adc.rm.munshiganj@gmail.com
+Pass: 12345678
+
+AC (RM) (8)
+Email: ac.rm.munshiganj@gmail.com
+Pass: 12345678
+
+AC (Land) (9)
+Email: ac.land.shirajdikha@gmail.com	
+Pass: 12345678
+
+Survayer (10)
+Email: surveyor.shirajdikha@gmail.com
+Pass: 12345678
+
+Kanango (11)
+Email: kaunugo.shirajdikha@gmail.com
+Pass: 12345678
+
+ULAO (12)
+Email: ulo.rajanogor@gmail.com
+Pass: 12345678
+
+GP (13)
+Email: gp.munshiganj@gmail.com
+Pass: 12345678
+
+Solicitor (14)
+Email: fazlul@gmail.com
+Pass: 12345678
+
+v2:
+-----------
+Secretary
+Email: secretary@minland.gov.bd
+Pass: 12345678
+
+Ofiice Head (17)
+Email: office.head@gmail.com	
+Pass: 12345678
+
+Desk Ofiicer (18)
+Email: desk.officer@gmail.com	
+Pass: 12345678
+
+Ofiice Assistant (19)
+Email: office.asst@gmail.com	
+Pass: 12345678
+
+Advocate (20)
+Email: at.advocate@gmail.com	
+Pass: 12345678
+
