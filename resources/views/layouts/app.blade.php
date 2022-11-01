@@ -43,12 +43,10 @@
                         <!-- Authentication Links -->
                         @guest
 
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="{{ route('login') }}"><b>{{ __('অফিস লগইন') }}</b></a>
-                            </li>
+                            
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link text-white"  data-toggle="modal" data-target="#exampleModalLong""><b>{{ __('অফিস 2 লগইন') }}</b></a>
+                                    <a class="nav-link text-white"  data-toggle="modal" data-target="#exampleModalLong""><b>{{ __('লগইন') }}</b></a>
                                 </li>
                             @endif
 
