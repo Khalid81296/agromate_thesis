@@ -81,152 +81,15 @@
                         </a>
                      </li>
                      @endif
-                     
-                     <!-- <li class="menu-item" aria-haspopup="true">
-                        <a href="#" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text">এস.এফের তালিকা</span>
-                        </a>
-                     </li> -->
                   </ul>
                </div>
             </li>
-            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 27 || Auth::user()->role_id == 5 || Auth::user()->role_id == 7 || Auth::user()->role_id == 9 || Auth::user()->role_id == 21 || Auth::user()->role_id == 22 || Auth::user()->role_id == 24 || Auth::user()->role_id == 25)
-            <li class="menu-item {{ request()->is('rmcase/*', 'messages_group', 'case') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-               <a href="javascript:;" class="menu-link menu-toggle">
-                  <span class="menu-text font-weight-bolder"><i class="fas fa-layer-group"></i>ভূমি রাজস্ব মামলা রেজিষ্টার</span>
-                  <i class="menu-arrow"></i>
-               </a>
-               <div class="menu-submenu">
-                  <i class="menu-arrow"></i>
-                  <ul class="menu-subnav">
-
-                     @if(Auth::user()->role_id == 5 || Auth::user()->role_id == 21 || Auth::user()->role_id == 22 || Auth::user()->role_id == 24)
-                        <li class="menu-item {{ request()->is(['rmcase/create']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                           <a href="{{ route('rmcase.create') }}" class="menu-link">
-                              <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                              <span class="menu-text font-weight-bolder">নতুন মামলা এন্ট্রি</span>
-                           </a>
-                        </li>
-                     @endif
-                    
-                     <li class="menu-item {{ request()->is(['rmcase/running_case']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ route('rmcase.running_case') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">চলমান মামলার তালিকা</span>
-                        </a>
-                     </li>
-                     <li class="menu-item {{ request()->is(['rmcase/complete_case']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ route('rmcase.complete_case') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">সম্পাদিত মামলার তালিকা</span>
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-            </li>
-               
-            @endif
+            
             @php
                 $roleID = Auth::user()->role_id;
             @endphp
 
-            <!-- =========================High court case========================== -->
-              @if( $roleID == 26 )
-                <li class="menu-item {{ request()->is('other/*') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                   <a href="javascript:;" class="menu-link menu-toggle">
-                      <span class="menu-text font-weight-bolder"><i class="fas fa-layer-group"></i>অন্যান্য মামলা রেজিষ্টার</span>
-                      <i class="menu-arrow"></i>
-                   </a>
-                   <div class="menu-submenu">
-                      <i class="menu-arrow"></i>
-                      <ul class="menu-subnav">
-                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('writcase.index') }}" class="menu-link">
-                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">রিট মামলা</span>
-                            </a>
-                         </li>
-                         <!-- <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('other.case.contempt') }}" class="menu-link">
-                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">অবমাননার মামলা</span>
-                            </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('other.case.review') }}" class="menu-link">
-                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">রিভিউ মামলা</span>
-                            </a>
-                         </li>
-                         <li class="menu-item" aria-haspopup="true">
-                            <a href="{{ route('atcase.create') }}" class="menu-link">
-                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">প্রশাসনিক মামলা</span>
-                            </a>
-                         </li> -->
-                         <!-- <li class="menu-item" aria-haspopup="true">
-                            <a href="#" class="menu-link">
-                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text">এস.এফের তালিকা</span>
-                            </a>
-                         </li> -->
-                      </ul>
-                   </div>
-                </li>
-              @endif
-
-            <!-- =========================//High court case========================== -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-            @if( $roleID == 8 || $roleID == 5  || $roleID == 19 )
-            <!-- <li class="menu-item {{ request()->is('other/*') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-               <a href="javascript:;" class="menu-link menu-toggle">
-                  <span class="menu-text font-weight-bolder"><i class="fas fa-layer-group"></i>অন্যান্য মামলা রেজিষ্টার</span>
-                  <i class="menu-arrow"></i>
-               </a>
-               <div class="menu-submenu">
-                  <i class="menu-arrow"></i>
-                  <ul class="menu-subnav">
-                     <li class="menu-item" aria-haspopup="true">
-                        <a href="{{ route('other.case.writ') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">রিট মামলা</span>
-                        </a>
-                     </li>
-                     <li class="menu-item" aria-haspopup="true">
-                        <a href="{{ route('other.case.contempt') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">অবমাননার মামলা</span>
-                        </a>
-                     </li>
-                     <li class="menu-item" aria-haspopup="true">
-                        <a href="{{ route('other.case.review') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">রিভিউ মামলা</span>
-                        </a>
-                     </li>
-                     <li class="menu-item" aria-haspopup="true">
-                        <a href="{{ route('atcase.create') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">প্রশাসনিক মামলা</span>
-                        </a>
-                     </li>
-                  </ul>
-               </div>
-            </li> -->
-            @endif
+           
             @if(Auth::user()->role_id != 17 && Auth::user()->role_id != 18 && Auth::user()->role_id != 19 && Auth::user()->role_id != 20 && Auth::user()->role_id != 29)
                {{-- // ========== Notification start =================== --}}
                <li class="menu-item {{ request()->is(['hearing_date', 'results_completed', 'new_sf_list']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
@@ -252,15 +115,7 @@
                                </span>
                                </a>
                            </li>
-                           <li class="menu-item" aria-haspopup="true">
-                               <a href="{{ route('rm_hearing_date') }}" class="menu-link">
-                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">শুনানির তারিখ নির্ধারণ করা হয়েছে(রাজস্ব মামলা)</span>
-                               <span class="menu-label">
-                                   <span class="label label-rounded label-danger">{{ $RmCaseHearingCount }}</span>
-                               </span>
-                               </a>
-                           </li>
+                           
                            <li class="menu-item" aria-haspopup="true">
                                <a href="{{ route('results_completed') }}" class="menu-link">
                                <i class="menu-bullet menu-bullet-dot"><span></span></i>
@@ -292,30 +147,7 @@
                                </li>
                               @empty
                            @endforelse
-                           @forelse ($rm_case_status as $row)
-                               <li class="menu-item" aria-haspopup="true">
-                                   <a href="{{ route('rmcase.action.receive', $row->case_status_id) }}" class="menu-link">
-                                   <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                   <span class="menu-text font-weight-bolder">{{ $row->case_status->status_name }}</span>
-                                   <span class="menu-label">
-                                       <span class="label label-rounded label-danger">{{ $row->total_case }}</span>
-                                   </span>
-                                   </a>
-                               </li>
-                              @empty
-                           @endforelse
-                           @forelse ($writ_case_status as $row)
-                               <li class="menu-item" aria-haspopup="true">
-                                   <a href="{{ route('writcase.action.receive', $row->cs_id) }}" class="menu-link">
-                                   <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                                   <span class="menu-text font-weight-bolder">{{ $row->status_name }}</span>
-                                   <span class="menu-label">
-                                       <span class="label label-rounded label-danger">{{ $row->total_case }}</span>
-                                   </span>
-                                   </a>
-                               </li>
-                              @empty
-                           @endforelse
+                           
                            @if(count($case_status) == 0 && count($rm_case_status) == 0 && count($writ_case_status) == 0)
                                <div class="d-flex align-items-center rounded p-5 mb-5">
                                    <span>কোন নোটিফিকেশন পাওয়া যায়নি</span>
@@ -331,7 +163,7 @@
 
             
 
-            <li class="menu-item {{ request()->is(['case_audit','rmcase/case_audit']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                    <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i>মামলা নিরীক্ষা</span>
                    {{-- <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i>মামলার ধারাবাহিক বিবরণ </span> --}}
@@ -346,19 +178,6 @@
                             <span class="menu-text font-weight-bolder">সাধারণ মামলা</span>
                          </a>
                       </li>
-                      <li class="menu-item {{ request()->is(['rmcase/case_audit']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ route('rmcase.case_audit.index') }}" class="menu-link">
-                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                            <span class="menu-text font-weight-bolder">ভূমি রাজস্ব মামলা</span>
-                         </a>
-                      </li>
-                      <li class="menu-item" aria-haspopup="true">
-                        <a href="{{ route('writcase.case_audit.index') }}" class="menu-link">
-                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                            <span class="menu-text font-weight-bolder">অন্যান্য মামলা</span>
-                         </a>
-                      </li>
-                   </ul>
                 </div>
              </li>
 
@@ -369,7 +188,7 @@
              </li> --}} -->
 
             @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 27) 
-              <li class="menu-item {{ request()->is(['report/*','rmcase/report',]) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+              <li class="menu-item {{ request()->is(['report/*']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="menu-text font-weight-bolder"><i class="fas fa-file-contract"></i> রিপোর্ট</span>
                     <i class="menu-arrow"></i>
@@ -381,18 +200,6 @@
                           <a href="{{ url('report/case') }}" class="menu-link">
                              <i class="menu-bullet menu-bullet-dot"><span></span></i>
                              <span class="menu-text font-weight-bolder">মামলার রিপোর্ট</span>
-                          </a>
-                       </li>
-                       <li class="menu-item" aria-haspopup="true">
-                          <a href="{{ route('rmcase.report.rmcaselist') }}" class="menu-link">
-                             <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                             <span class="menu-text font-weight-bolder">রাজস্ব মামলার রিপোর্ট</span>
-                          </a>
-                       </li>
-                       <li class="menu-item" aria-haspopup="true">
-                          <a href="{{ route('writcase.report.case') }}" class="menu-link">
-                             <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                             <span class="menu-text font-weight-bolder">রিট মামলার রিপোর্ট</span>
                           </a>
                        </li>
                     </ul>
@@ -496,11 +303,6 @@
             <li class="menu-item {{ request()->is('office') ? 'menu-item-open' : '' }}" aria-haspopup="true">
                <a href="{{ route('office') }}" class="menu-link">
                   <span class="menu-text font-weight-bolder"><i class="la la-briefcase"></i> অফিস সেটিংস</span>
-               </a>
-            </li>
-            <li class="menu-item {{ request()->is('ulo') ? 'menu-item-open' : '' }}" aria-haspopup="true">
-               <a href="{{ route('ulo') }}" class="menu-link">
-                  <span class="menu-text font-weight-bolder"><i class="la la-briefcase"></i>মৌজা ভিত্তিক ইউ.এল.ও সেটিংস</span>
                </a>
             </li>
             <li class="menu-item {{ request()->is('court') ? 'menu-item-open' : '' }}" aria-haspopup="true">

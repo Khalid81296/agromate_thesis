@@ -7,18 +7,14 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OfficeController;
-use App\Http\Controllers\Office_ULOController;
 use App\Http\Controllers\CourtController;
 use App\Http\Controllers\CaseRegisterController;
-use App\Http\Controllers\OtherCaseRegisterController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AffidavitController;
 use App\Http\Controllers\AdvocateController;
 use App\Http\Controllers\MyprofileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\ReportController;
-use App\Http\Controllers\Writ_ReportController;
-use App\Http\Controllers\RM_ReportController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PagesController;
 use App\Models\CaseActivityLog;
@@ -27,17 +23,8 @@ use App\Http\Controllers\UserNotificationController;
 Use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MinarController;
-use App\Http\Controllers\AtCaseRegisterController;
-use App\Http\Controllers\AtCaseActionController;
-use App\Http\Controllers\RM_CaseActionController;
-use App\Http\Controllers\RM_CaseRegisterController;
-use App\Http\Controllers\RM_CaseActivityLogController;
 use App\Http\Controllers\FrontHomeController;
 use App\Http\Controllers\SiteSettingController;
-use App\Http\Controllers\CabinetController;
-use App\Http\Controllers\WritCaseController;
-use App\Http\Controllers\Writ_CaseActionController;
-use App\Http\Controllers\Writ_CaseActivityLogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -102,13 +89,9 @@ Route::post('/csLogin', [LoginController::class, 'csLogin']);
 Route::get('/logincheck', [DashboardController::class, 'logincheck']);
 // Route::get('public_home', [FrontHomeController::class, 'public_home']);
 Route::get('/', [FrontHomeController::class, 'public_home']);
-Route::get('cabinet/create', [CabinetController::class, 'create']);
 Route::get('hearing-case-list', [FrontHomeController::class, 'dateWaysCase'])->name('dateWaysCase');
-Route::get('writ-hearing-case-list', [FrontHomeController::class, 'dateWaysWritCase'])->name('dateWaysWritCase');
-Route::get('rm-case-hearing-list', [FrontHomeController::class, 'dateWaysRMCase'])->name('dateWaysRMCase');
-Route::get('rm-case-hearing-details/{id}', [FrontHomeController::class, 'rm_show'])->name('dateWaysRMCaseDetails');
+
 Route::get('case-hearing-details/{id}', [FrontHomeController::class, 'hearing_case_details'])->name('dateWaysCaseDetails');
-Route::get('writ-case-hearing-details/{id}', [FrontHomeController::class, 'writ_case_hearing_details'])->name('dateWaysWritCaseDetails');
 
 Route::middleware('auth')->group(function () {
     // setting
@@ -199,9 +182,6 @@ Route::middleware('auth')->group(function () {
 
 
     ////********************Other Case Register*****************************///
-    Route::get('/other/case/writ/create', [OtherCaseRegisterController::class, 'writ_create'])->name('other.case.writ');
-    Route::get('/other/case/contempt/create', [OtherCaseRegisterController::class, 'contempt_create'])->name('other.case.contempt');
-    Route::get('/other/case/review/create', [OtherCaseRegisterController::class, 'review_create'])->name('other.case.review');
 
 
 
@@ -212,17 +192,9 @@ Route::middleware('auth')->group(function () {
     // Route::get('/report/old-case', [ReportController::class, 'old_case']);
 
     /////****************** Report Module *************/////
-    Route::get('/writcase/report', [Writ_ReportController::class, 'index'])->name('writcase.report');
-    Route::get('/writcase/report/case', [Writ_ReportController::class, 'caselist'])->name('writcase.report.case');
-    Route::post('/writcase/report/pdf', [Writ_ReportController::class, 'pdf_generate']);
-    // Route::get('/report/old-case', [Writ_ReportController::class, 'old_case']);
 
 
     /////****************** RM Report Module *************/////
-    Route::get('/rmcase/report', [RM_ReportController::class, 'index'])->name('rmcase.report');
-    Route::get('/rmcase/report/caselist', [RM_ReportController::class, 'caselist'])->name('rmcase.report.rmcaselist');
-    Route::post('/rmcase/report/pdf', [RM_ReportController::class, 'pdf_generate']);
-    // Route::get('/report/old-case', [RM_ReportController::class, 'old_case']);
 
     //============ Case Activity Log Start ==============//
     Route::get('/case_audit', [CaseActivityLogController::class, 'index'])->name('case_audit.index');
@@ -259,15 +231,6 @@ Route::middleware('auth')->group(function () {
 
 
     /////************** Office_ULO Setting **************/////
-    // Route::resource('office_ulo-setting', Office_ULOController::class);
-    Route::get('/ulo', [Office_ULOController::class, 'index'])->name('ulo');
-    route::get('/ulo/create', [Office_ULOController::class, 'create'])->name('ulo.create');
-    route::post('/ulo/save', [Office_ULOController::class, 'store'])->name('ulo.save');
-    route::get('/ulo/edit/{id}', [Office_ULOController::class, 'edit'])->name('ulo.edit');
-    route::post('/ulo/update/{id}', [Office_ULOController::class, 'update'])->name('ulo.update');
-    route::get('/ulo/dropdownlist/getdependentdistrict/{id}', [Office_ULOController::class , 'getDependentDistrict']);
-    route::get('/ulo/dropdownlist/getdependentupazila/{id}', [Office_ULOController::class , 'getDependentUpazila']);
-    route::get('/ulo/dropdownlist/getdependentulo/{id}', [Office_ULOController::class , 'getDependentULO']);
     /////************** Court Setting **************/////
     // Route::resource('court-setting', CourtController::class);
     route::get('/court', [CourtController::class, 'index'])->name('court');
@@ -351,131 +314,6 @@ Route::middleware('auth')->group(function () {
 
 
     //CivilSuit-v2 AT Case Route start from here
-    Route::group(['prefix' => 'atcase/', 'as' => 'atcase.'], function () {
-    /********************AT Case Register Start*****************************/
-        Route::get('create', [AtCaseRegisterController::class, 'create'])->name('create');
-        Route::get('index', [AtCaseRegisterController::class, 'index'])->name('index');
-        Route::post('store', [AtCaseRegisterController::class, 'store'])->name('store');
-        Route::get('show/{id}', [AtCaseRegisterController::class, 'show'])->name('show');
-        Route::get('edit/{id}', [AtCaseRegisterController::class, 'edit'])->name('edit');
-        Route::post('update/{id}', [AtCaseRegisterController::class, 'update'])->name('update');
-        Route::post('ajax_badi_del/{id}', [AtCaseRegisterController::class , 'ajaxBadiDelete']);
-        Route::post('ajax_bibadi_del/{id}', [AtCaseRegisterController::class , 'ajaxBibadiDelete']);
-        Route::post('ajax_order_del/{id}', [AtCaseRegisterController::class , 'ajaxOrderDelete']);
-        Route::post('ajax_judge_del/{id}', [AtCaseRegisterController::class , 'ajaxJudgeDelete']);
-
-        /******************** // AT Case Register End *****************************/
-
-        /////*******************  Action Start *****************/////
-        Route::group(['prefix' => 'action/', 'as' => 'action.'], function () {
-            Route::get('receive/{id}', [AtCaseActionController::class, 'receive'])->name('receive');
-            Route::get('details/{id}', [AtCaseActionController::class, 'details'])->name('details');
-            Route::post('forward', [AtCaseActionController::class, 'store'])->name('forward');
-            Route::post('createsf', [AtCaseActionController::class, 'create_sf'])->name('createsf');
-            Route::post('editsf', [AtCaseActionController::class, 'edit_sf'])->name('editsf');
-            Route::post('hearingadd', [AtCaseActionController::class, 'hearing_store'])->name('hearingadd');
-            Route::post('file_store_hearing', [AtCaseActionController::class, 'file_store_hearing'])->name('file_store_hearing');
-            Route::post('result_update', [AtCaseActionController::class, 'result_update'])->name('result_update');
-            Route::get('pdf_sf/{id}', [AtCaseActionController::class, 'pdf_sf'])->name('pdf_sf');
-            Route::get('testpdf', [AtCaseActionController::class, 'test_pdf'])->name('testpdf');
-            Route::post('file_store', [AtCaseActionController::class, 'file_store'])->name('file_store');
-            Route::post('file_save', [AtCaseActionController::class, 'file_save']);
-            Route::get('getDependentCaseStatus/{id}', [AtCaseActionController::class, 'getDependentCaseStatus']);
-        });
-        /////******************* // Action End *****************/////
-    });
-
-    //CivilSuit-v2 RM Case Route start from here
-    Route::group(['prefix' => 'rmcase/', 'as' => 'rmcase.'], function () {
-    /********************AT Case Register Start*****************************/
-        Route::get('create', [RM_CaseRegisterController::class, 'create'])->name('create');
-        Route::get('index', [RM_CaseRegisterController::class, 'index'])->name('index');
-        Route::get('running_case', [RM_CaseRegisterController::class, 'running_case'])->name('running_case');
-        Route::get('complete_case', [RM_CaseRegisterController::class, 'complete_case'])->name('complete_case');
-        Route::post('store', [RM_CaseRegisterController::class, 'store'])->name('store');
-        Route::get('show/{id}', [RM_CaseRegisterController::class, 'show'])->name('show');
-        Route::get('edit/{id}', [RM_CaseRegisterController::class, 'edit'])->name('edit');
-        Route::post('update/{id}', [RM_CaseRegisterController::class, 'update'])->name('update');
-        Route::post('ajax_badi_del/{id}', [RM_CaseRegisterController::class , 'ajaxBadiDelete']);
-        Route::post('ajax_bibadi_del/{id}', [RM_CaseRegisterController::class , 'ajaxBibadiDelete']);
-        Route::post('ajax_file_del/{id}', [RM_CaseRegisterController::class , 'ajaxFileDelete']);
-        Route::post('ajax_order_del/{id}', [RM_CaseRegisterController::class , 'ajaxOrderDelete']);
-        Route::post('ajax_judge_del/{id}', [RM_CaseRegisterController::class , 'ajaxJudgeDelete']);
-        Route::get('appeal/create/{id}', [RM_CaseRegisterController::class, 'create_appeal'])->name('create_appeal');
-        Route::post('appeal/store/{id}', [RM_CaseRegisterController::class, 'store_appeal'])->name('store_appeal');
-
-
-        /******************** // AT Case Register End *****************************/
-
-        /////*******************  Action Start *****************/////
-        Route::group(['prefix' => 'action/', 'as' => 'action.'], function () {
-            Route::get('receive/{id}', [RM_CaseActionController::class, 'receive'])->name('receive');
-            Route::get('details/{id}', [RM_CaseActionController::class, 'details'])->name('details');
-            Route::post('forward', [RM_CaseActionController::class, 'store'])->name('forward');
-            Route::post('createsf', [RM_CaseActionController::class, 'create_sf'])->name('createsf');
-            Route::post('editsf', [RM_CaseActionController::class, 'edit_sf'])->name('editsf');
-            Route::post('hearingadd', [RM_CaseActionController::class, 'hearing_store'])->name('hearingadd');
-            Route::post('file_store_hearing', [RM_CaseActionController::class, 'file_store_hearing'])->name('file_store_hearing');
-            Route::post('hearing_result_upload', [RM_CaseActionController::class, 'hearing_result_upload'])->name('hearing_result_upload');
-            Route::post('result_update', [RM_CaseActionController::class, 'result_update'])->name('result_update');
-            Route::get('pdf_sf/{id}', [RM_CaseActionController::class, 'pdf_sf'])->name('pdf_sf');
-            Route::get('testpdf', [RM_CaseActionController::class, 'test_pdf'])->name('testpdf');
-            Route::post('file_store', [RM_CaseActionController::class, 'file_store'])->name('file_store');
-            Route::post('file_save', [RM_CaseActionController::class, 'file_save']);
-            Route::get('getDependentCaseStatus/{id}', [RM_CaseActionController::class, 'getDependentCaseStatus']);
-        });
-        /////******************* // Action End *****************/////
-
-        //============ RM Case Activity Log Start ==============//
-        Route::get('/case_audit', [RM_CaseActivityLogController::class, 'index'])->name('case_audit.index');
-        Route::get('/case_audit/details/{id}', [RM_CaseActivityLogController::class, 'show'])->name('case_audit.show');
-        Route::get('/case_audit/pdf-Log/{id}', [RM_CaseActivityLogController::class, 'caseActivityPDFlog'])->name('case_audit.caseActivityPDFlog');
-        Route::get('/case_audit/case_details/{id}', [RM_CaseActivityLogController::class, 'reg_case_details'])->name('case_audit.reg_case_details');
-        Route::get('/case_audit/sf/details/{id}', [RM_CaseActivityLogController::class, 'sflog_details'])->name('case_audit.sf.details');
-        //============ RM Case Activity Log End ==============//
-    });
-
-    //CivilSuit-v2 Writ Case Route start from here
-    Route::group(['prefix' => 'writcase/', 'as' => 'writcase.'], function () {
-    /********************Writ Case Register Start*****************************/
-        Route::get('create', [WritCaseController::class, 'create'])->name('create');
-        Route::get('index', [WritCaseController::class, 'index'])->name('index');
-        Route::post('store', [WritCaseController::class, 'store'])->name('store');
-        Route::get('details/{id}', [WritCaseController::class, 'show'])->name('show');
-        Route::get('edit/{id}', [WritCaseController::class, 'edit'])->name('edit');
-        Route::get('sflog/details/{id}', [WritCaseController::class, 'sflog_details'])->name('sflog.details');
-        Route::get('/dropdownlist/getdependentdistrict/{id}', [WritCaseController::class , 'getDependentDistrict']);
-        Route::get('/dropdownlist/getdependentupazila/{id}', [WritCaseController::class , 'getDependentUpazila']);
-            
-        
-
-        /////*******************  Action Start *****************/////
-        Route::group(['prefix' => 'action/', 'as' => 'action.'], function () {
-            Route::get('/receive/{id}', [Writ_CaseActionController::class, 'receive'])->name('receive');
-            Route::get('/details/{id}', [Writ_CaseActionController::class, 'details'])->name('details');
-            Route::post('/forward', [Writ_CaseActionController::class, 'store'])->name('forward');
-            Route::post('/createsf', [Writ_CaseActionController::class, 'create_sf'])->name('createsf');
-            Route::post('/editsf', [Writ_CaseActionController::class, 'edit_sf'])->name('editsf');
-            Route::post('/hearingadd', [Writ_CaseActionController::class, 'hearing_store'])->name('hearingadd');
-             Route::post('/file_store_hearing', [Writ_CaseActionController::class, 'file_store_hearing']);
-
-            Route::post('/result_update', [Writ_CaseActionController::class, 'result_update'])->name('result_update');
-            Route::get('/pdf_sf/{id}', [Writ_CaseActionController::class, 'pdf_sf'])->name('pdf_sf');
-            Route::get('/testpdf', [Writ_CaseActionController::class, 'test_pdf'])->name('testpdf');
-            Route::post('/file_store', [Writ_CaseActionController::class, 'file_store']);
-            Route::post('/file_save', [Writ_CaseActionController::class, 'file_save']);
-            Route::post('/affidavit_committtee_save', [Writ_CaseActionController::class, 'affidavit_committtee_save']);
-            Route::get('/getDependentCaseStatus/{id}', [Writ_CaseActionController::class, 'getDependentCaseStatus']);
-        });
-        /////******************* // Action End *****************/////
-
-    //============ Case Activity Log Start ==============//
-    Route::get('/case_audit', [Writ_CaseActivityLogController::class, 'index'])->name('case_audit.index');
-    Route::get('/case_audit/details/{id}', [Writ_CaseActivityLogController::class, 'show'])->name('case_audit.show');
-    Route::get('/case_audit/pdf-Log/{id}', [Writ_CaseActivityLogController::class, 'caseActivityPDFlog'])->name('case_audit.caseActivityPDFlog');
-    Route::get('/case_audit/case_details/{id}', [Writ_CaseActivityLogController::class, 'reg_case_details'])->name('case_audit.reg_case_details');
-    Route::get('/case_audit/sf/details/{id}', [Writ_CaseActivityLogController::class, 'sflog_details'])->name('case_audit.sf.details');
-    //============ Case Activity Log End ==============//
-    });
+   
     // URL::forceScheme('https');
 });
