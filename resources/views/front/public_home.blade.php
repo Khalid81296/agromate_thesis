@@ -45,27 +45,27 @@
                       <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                     </ol>
                     <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img class="d-block w-100" src="{{ asset('media/banner/01.jpg') }}" alt="First slide">
+                        <div class="carousel-item active">
+                            <img class="d-block w-100" src="{{ asset('media/banner/01.jpg') }}" alt="First slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                {{-- <h5>Minar khan</h5>
+                                <p>.Khalid mia.</p> --}}
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                            <img class="d-block w-100" style="height: 700px !important" src="{{ asset('media/banner/02.jpg') }}" alt="Second slide">
+                            <div class="carousel-caption d-none d-md-block">
+                                {{-- <h5>Minar khan</h5>
+                                <p>.Khalid mia.</p> --}}
+                            </div>
+                        </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" style="height: 700px !important" src="{{ asset('media/banner/03.jpg') }}" alt="Third slide">
                         <div class="carousel-caption d-none d-md-block">
                             {{-- <h5>Minar khan</h5>
                             <p>.Khalid mia.</p> --}}
                         </div>
                     </div>
-                      <div class="carousel-item">
-                        <img class="d-block w-100" src="{{ asset('media/banner/02.jpg') }}" alt="Second slide">
-                        <div class="carousel-caption d-none d-md-block">
-                            {{-- <h5>Minar khan</h5>
-                            <p>.Khalid mia.</p> --}}
-                        </div>
-                    </div>
-                    <!-- <div class="carousel-item">
-                        <img class="d-block w-100" src="{{ asset('media/banner/03.jpg') }}" alt="Third slide">
-                        <div class="carousel-caption d-none d-md-block">
-                            {{-- <h5>Minar khan</h5>
-                            <p>.Khalid mia.</p> --}}
-                        </div>
-                    </div> -->
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -90,23 +90,123 @@
         </div>
     </div>
     <div class="col-md-12 row">
+
         <div class="col-md-8">
-            <div class="card">
-                <div class="card card-custom">
-                    <div class="card-header">
-                        <div class="card-title">
-                            <h3 class="card-label">
-                                শুনানির তারিখ
-                            </h3>
+            <div class="col-md-12 row">
+                <div class="col-md-6 mb-5">
+                    <div class="card">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        ভ্যাকসিন / টিকা কী?
+                                    </h3>
+                                </div>
+                            </div>
+                            <img class="card-img-top" src="{{ asset('media/frontpage/vaccine2.png') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p>
+                                    ভ্যাকসিন বা টিকা একটি জৈবিক প্রোডাক্ট। নির্দিষ্ট ব্যাকটেরিয়া বা ভাইরাস দ্বারা আক্রান্ত প্রাণীর দেহ হতে উক্ত জীবাণু সংগ্রহ করে বিশেষ পদ্ধতিতে সংরক্ষণ করা হয়। পরে ওই জীবাণুকে নিস্তেজ বা অর্ধমৃত বা মৃত অবস্থায় এনে এক ধরনের জীবাণুজাত ওষুধ তৈরি করা হয় যা নির্দিষ্ট পদ্ধতিতে দেহে প্রবেশ করালে উক্ত ব্যাকটেরিয়া বা ভাইরাস জাতীয় রোগের বিরুদ্ধে রোগ প্রতিরোধ ক্ষমতা তৈরি করে, যাকে ভ্যাকসিন বা টিকা বলে।
+                                </p>
+                            </div>
                         </div>
-                        {{-- <div class="card-toolbar">
-                            <a href="#" class="btn btn-light-primary font-weight-bold">
-                                <i class="ki ki-plus "></i> Add Event
-                            </a>
-                        </div> --}}
                     </div>
-                    <div class="card-body">
-                        <div id="kt_calendar"></div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="card">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                       ভ্যাকসিন বা টিকা ফলপ্রসূ না হওয়ার কারণসমূহ  
+                                    </h3>
+                                </div>
+                            </div>
+                            <img class="card-img-top" src="{{ asset('media/frontpage/vaccine.png') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p>
+                                    যেসব কারণে গবাদিপশুকে ভ্যাকসিন বা টিকা দেয়ার পরও রোগ প্রতিরোধ হয় না তা নীচে বর্ণিত হলো। পশুপাখির যে রোগের বিরুদ্ধে ভ্যাকসিন দেয়া হয়েছে যদি ওই রোগের জীবাণু পূর্বেই পশুপাখির শরীরে সুপ্ত অবস্থায় থাকে তবে ওই ভ্যাকসিন কার্যকর হবে না বরং আরো দ্রুত রোগ দেখা দিবে।। এজন্য কোনো পশুপাখির খামার/ ঝাঁকে রোগের লক্ষণ দেখা দেয়ার পর ওই খামার/ঝাঁকে কোনো সময়ই ওই রোগের বিরুদ্ধে ভ্যাকসিন দেয়া উচিত নয় । 
+                                    
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="card">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                      গরুর লাম্পি স্কিন রোগ   
+                                    </h3>
+                                </div>
+                            </div>
+                            <img class="card-img-top" src="{{ asset('media/frontpage/lumpy.png') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p>
+                                   এ ধরনের কীটপতঙ্গ আক্রান্ত গরুকে দংশন করার পর অন্য একটি সুস্থ গরুকে দংশন করলে সেই গরুটিও আক্রান্ত হয়। আবার আক্রান্ত গরুর লালা খাবারে মিশে এবং খামার পরিচর্যাকারী ব্যক্তির কাপড়চোপড়ের মাধ্যমে ছড়াতে পারে। আক্রান্ত গাভির দুধেও এই ভাইরাস বিদ্যমান। তাই আক্রান্ত গাভির দুধ খেয়ে বাছুর আক্রান্ত হতে পারে।
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="card">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        গাভীর এনাপ্লাজমোসিস রোগ
+                                    </h3>
+                                </div>
+                            </div>
+                            <img class="card-img-top" src="{{ asset('media/frontpage/enpazmis.png') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p>
+                                    এনাপ্লাজমোসিস গরুর একটি মারাত্মক সংক্রামক রোগ। এটি রক্তবাহিত রোগ। এ রোগে রক্তশূন্যতা জন্ডিস ও জ্বরের লক্ষণ দেখা যায়।  অস্ট্রেলিয়া ও দক্ষিণ এশিয়াতেও এ রোগের সংক্রমণ ঘটে থাকে।  এ রোগে আক্রান্ত গরুর মৃত্যুর হার ৫০% পর্যন্ত হয়ে থাকে। তাছাড়া চিকিৎসা খরচও খুব বেশি। বাংলাদেশে প্রতি বছর এ রোগে আক্রান্ত হয়ে লক্ষ লক্ষ টাকা মূল্যের গাভীর মৃত্যু হয়ে থাকে ।
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="card">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                        বাংলাদেশে ক্ষুরারোগ
+                                    </h3>
+                                </div>
+                            </div>
+                            <img class="card-img-top" src="{{ asset('media/frontpage/khurarog.png') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p>
+                                    এটা ভাইরাস দ্বারা গঠিত রোগ। এ্যাপথা (Apthas) নামক আর এন এ (RNA) ভাইরাস এ রোগ সৃষ্টির জন্য দায়ী। এটি পিকরনাভিরিডি (picornaviridae) গোত্রের একটি উল্লেখ্যযোগ্য ভাইরাস।বাংলাদেশে শীতকালে ও বর্ষাকালে এ রোগ বেশি হলেও প্রায় সব ঋতুতে দেখা যায়। বাংলাদেশের ভৌগলিক অবস্থা ও পরিবেশ গত কারণে এ রোগের প্রকট অনেক বেশি। এ ক্ষুরা রোগের কারণে ডেইরি শিল্পে ব্যাপক ক্ষতি হয় প্রতি বছর। বার্ষিক ক্ষতির পরিমাণ প্রায় ৯৭২ কোটি ১২ লাখ ৫০ হাজার টাকা।
+                                    
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-5">
+                    <div class="card">
+                        <div class="card card-custom">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <h3 class="card-label">
+                                      গরুর প্রাণঘাতী রোগ ব্যাবেসিওসিস  
+                                    </h3>
+                                </div>
+                            </div>
+                            <img class="card-img-top" src="{{ asset('media/frontpage/babesiosis.png') }}" alt="Card image cap">
+                            <div class="card-body">
+                                <p>
+                                    পরজীবীঘটিত একধরনের রোগ। Boophilus microplus নামের এক ধরনের উকুনের কামড়ে এই পরজীবী গরুর দেহে প্রবেশ করে রক্তের লোহিত কণিকায় আশ্রয় নেয়, সেখানেই বংশ বৃদ্ধি করে। ক্রমেই অন্যান্য লোহিত কণিকায়ও আক্রমণ করে। এতে লোহিত কণিকা ভেঙে হিমোগ্লোবিন রক্তে ছড়িয়ে পড়ে এবং প্রস্রাবের মাধ্যমে বের হয়ে আসে। বেশি লোহিত কণিকা আক্রান্ত হলে গরুর রক্তস্বল্পতা দেখা দেয়।
+                                    
+                                    
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
-    <title> ভূমি রাজস্ব মামলা ম্যানেজমেন্ট সিষ্টেমে </title>
+    <title> এগ্রোমেট </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -26,7 +26,7 @@
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color:#005200;">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="{{ asset('media/logos/civil-suit-logo.png') }}" style="width: 360px;" alt="" />
+                    <img src="{{ asset('media/logos/agromate.png') }}" style="width: 360px;height: 60px;" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -45,14 +45,14 @@
 
                             
                             @if (Route::has('login'))
-                                <li class="nav-item">
+                                <li class="nav-item text-white btn btn-primary mr-2">
                                     <a class="nav-link text-white"  data-toggle="modal" data-target="#exampleModalLong""><b>{{ __('লগইন') }}</b></a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <li class="nav-item text-white btn btn-primary ml-2">
+                                    <a class="nav-link text-white" href="{{ route('register') }}">{{ __('নিবন্ধন') }}</a>
                                 </li>
                             @endif
                         @else
@@ -110,9 +110,9 @@
                                             <!--begin::Title-->
                                             <!--begin::Form group-->
                                             <div class="form-group fv-plugins-icon-container has-success">
-                                                <label class="font-size-h6 font-weight-bolder text-dark">ইমেইল, ইউজারনেম, এন আই ডি</label>
+                                                <label class="font-size-h6 font-weight-bolder text-dark">ইমেইল অথবা মোবাইল নম্বর</label>
                                                 <input class="form-control h-auto border-info px-5 py-5 is-valid"
-                                                    placeholder="ইমেইল, ইউজারনেম, এন আই ডি" type="text" name="email" autocomplete="off">
+                                                    placeholder="ইমেইল অথবা মোবাইল নম্বর" type="text" name="email" autocomplete="off">
                                                 <div class="fv-plugins-message-container"></div>
                                             </div>
                                             <!--end::Form group-->
@@ -164,54 +164,155 @@
 
         <footer class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color:#005200;text-align: center;text-align: center; color: #fff;font-weight: 600;font-size: 15px;" >
             <div class="container">
-                <p >Copyrights © {{ date('Y',strtotime(now())) }} All Rights Reserved <a href="#">Ministry of Land</a>, Government of the People's Republic of Bangladesh</p>
+                <p >Copyrights © {{ date('Y',strtotime(now())) }} All Rights Reserved <a href="#">Khalid Bin Hassan</a></p>
             </div>
           <div>
              
-            <a href="http://mysoftheaven.com"><img style="width: 200px;height: auto;" src="https://ldtax.gov.bd/assets/images/auto.png" alt=""></a>
+            <a href="#"><img style="width: 200px;height: 50px;" src="{{ asset('media/logos/mnm.png') }}" alt=""></a>
           </div>
         </footer>
 
     </div>
     @push('scripts')
-    <script type="text/javascript">
-        function labelmk(){
-        var _token = $("#kt_login_singin_form input[name='_token']").val();
-        var email = $("#kt_login_singin_form input[name='email']").val();
-        var password = $("#kt_login_singin_form input[name='password']").val();
+        <script type="text/javascript">
+            function labelmk(){
+                var _token = $("#kt_login_singin_form input[name='_token']").val();
+                var email = $("#kt_login_singin_form input[name='email']").val();
+                var password = $("#kt_login_singin_form input[name='password']").val();
 
-        if(email == '' || password == ''){
-            // toastr.info('Email or password not will be null!', "Error");
-            return;
-        }
-        $.ajax({
-            url: "{{ url('') }}/csLogin",
-            type: 'POST',
-            data: {
-                _token: _token,
-                email: email,
-                password: password,
-            },
-            success: function(data) {
-                console.log(data);
-                if ($.isEmptyObject(data.error)) {
-                    // toastr.success(data.success, "Success");
-                    $('#exampleModalLong').modal('toggle');
-                    console.log(data.success);
-                    setTimeout(function(){
-                        // location.reload();
-                        $(location).attr('href', "{{ url('') }}/dashboard");
-                    }, 1000);
-                } else {
-                    // toastr.error(data.error, "Error");
-                    console.log(data.error);
-                    
-                    // printErrorMsg(data.error);
+                if(email == '' || password == ''){
+                    // toastr.info('Email or password not will be null!', "Error");
+                    return;
                 }
+                $.ajax({
+                    url: "{{ url('') }}/csLogin",
+                    type: 'POST',
+                    data: {
+                        _token: _token,
+                        email: email,
+                        password: password,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if ($.isEmptyObject(data.error)) {
+                            // toastr.success(data.success, "Success");
+                            $('#exampleModalLong').modal('toggle');
+                            console.log(data.success);
+                            setTimeout(function(){
+                                // location.reload();
+                                $(location).attr('href', "{{ url('') }}/dashboard");
+                            }, 1000);
+                        } else {
+                            // toastr.error(data.error, "Error");
+                            console.log(data.error);
+                            
+                            // printErrorMsg(data.error);
+                        }
+                    }
+                });
             }
-        });
-    }
-    </script>
-    @pushend
+        </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    // common_datepicker
+    
+</script>
+   <script type="text/javascript">
+      jQuery(document).ready(function ()
+      {
+         // District Dropdown
+         jQuery('select[name="division"]').on('change',function(){
+            var dataID = jQuery(this).val();
+            // var category_id = jQuery('#category_id option:selected').val();
+            jQuery("#district_id").after('<div class="loadersmall"></div>');
+            if(dataID)
+            {
+               jQuery.ajax({
+                  url : '{{url("/")}}/register/dropdownlist/getdependentdistrict/' +dataID,
+                  type : "GET",
+                  dataType : "json",
+                  success:function(data)
+                  {
+                     jQuery('select[name="district"]').html('<div class="loadersmall"></div>');
+                     //console.log(data);
+                     // jQuery('#mouja_id').removeAttr('disabled');
+                     // jQuery('#mouja_id option').remove();
+
+                     jQuery('select[name="district"]').html('<option value="">-- নির্বাচন করুন --</option>');
+                     jQuery.each(data, function(key,value){
+                        jQuery('select[name="district"]').append('<option value="'+ key +'">'+ value +'</option>');
+                     });
+                     jQuery('.loadersmall').remove();
+                     // $('select[name="mouja"] .overlay').remove();
+                     // $("#loading").hide();
+                  }
+               });
+            }
+            else
+            {
+               $('select[name="district"]').empty();
+            }
+         });
+
+      // Upazila Dropdown
+      jQuery('select[name="district"]').on('change',function(){
+         var dataID = jQuery(this).val();
+         // var category_id = jQuery('#category_id option:selected').val();
+         jQuery("#upazila_id").after('<div class="loadersmall"></div>');
+            jQuery.ajax({
+             url : '{{url("/")}}/register/dropdownlist/getdependentupazila/' +dataID,
+             type : "GET",
+             dataType : "json",
+             success:function(data)
+             {
+               jQuery('select[name="upazila"]').html('<div class="loadersmall"></div>');
+                  //console.log(data);
+                  // jQuery('#mouja_id').removeAttr('disabled');
+                  // jQuery('#mouja_id option').remove();
+
+                  jQuery('select[name="upazila"]').html('<option value="">-- নির্বাচন করুন --</option>');
+                  jQuery.each(data, function(key,value){
+                    jQuery('select[name="upazila"]').append('<option value="'+ key +'">'+ value +'</option>');
+                 });
+                  jQuery('.loadersmall').remove();
+                  // $('select[name="mouja"] .overlay').remove();
+                  // $("#loading").hide();
+               }
+            });
+         
+      });
+
+      // Upazila Dropdown
+      jQuery('select[name="upazila"]').on('change',function(){
+         var dataID = jQuery(this).val();
+         // var category_id = jQuery('#category_id option:selected').val();
+         jQuery("#mouja_id").after('<div class="loadersmall"></div>');
+            jQuery.ajax({
+             url : '{{url("/")}}/register/dropdownlist/getdependentmouja/' +dataID,
+             type : "GET",
+             dataType : "json",
+             success:function(data)
+             {
+               jQuery('select[name="mouja"]').html('<div class="loadersmall"></div>');
+                  //console.log(data);
+                  // jQuery('#mouja_id').removeAttr('disabled');
+                  // jQuery('#mouja_id option').remove();
+
+                  jQuery('select[name="mouja"]').html('<option value="">-- নির্বাচন করুন --</option>');
+                  jQuery.each(data, function(key,value){
+                    jQuery('select[name="mouja"]').append('<option value="'+ key +'">'+ value +'</option>');
+                 });
+                  jQuery('.loadersmall').remove();
+                  // $('select[name="mouja"] .overlay').remove();
+                  // $("#loading").hide();
+               }
+            });
+         
+      });
+
+
+   });
+</script>
+
 </body>
 </html>

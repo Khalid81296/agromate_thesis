@@ -4,7 +4,7 @@
       <!--begin::Logo-->
       <a href="{{ url('dashboard') }}" class="brand-logo">
          <!-- <img alt="Logo" src="media/logos/logo-light.png" /> -->
-         <img alt="Logo" src="{{ asset('media/logos/civil-suit-logo.png') }}" height="45" class="mr-4" style="border: 0px solid #8a8a8a; padding: 2px;" />
+         <img alt="Logo" src="{{ asset('media/logos/agromate.png') }}" height="45" class="mr-4" style="border: 0px solid #8a8a8a; padding: 2px;" />
          <!-- <span style="font-weight: bold; font-size: 25px; color: white;">Civil Suit</span> -->
       </a>
       <!--end::Logo-->
@@ -40,7 +40,7 @@
 
             <li class="menu-item {{ request()->is('case/*', 'messages_group', 'case') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                <a href="javascript:;" class="menu-link menu-toggle">
-                  <span class="menu-text font-weight-bolder"><i class="fas fa-layer-group"></i>সিভিলস্যুট  রেজিষ্টার</span>
+                  <span class="menu-text font-weight-bolder"><i class="fas fa-layer-group"></i>রেজিষ্টারকৃত পশুর তালিকা</span>
                   <i class="menu-arrow"></i>
                </a>
                <div class="menu-submenu">
@@ -50,7 +50,7 @@
                         <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
                            <a href="{{ url('case/add') }}" class="menu-link">
                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                              <span class="menu-text font-weight-bolder">নতুন মোকদ্দমা এন্ট্রি</span>
+                              <span class="menu-text font-weight-bolder">নতুন পশু এন্ট্রি</span>
                            </a>
                         </li>
                      @endif --}}
@@ -59,25 +59,25 @@
                      <li class="menu-item {{ request()->is(['case/running_case']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
                         <a href="{{ route('case.running') }}" class="menu-link">
                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">নতুন মোকদ্দমার তালিকা</span>
+                           <span class="menu-text font-weight-bolder">প্রাপ্ত বয়স্ক ষাঁড়ের তালিকা</span>
                         </a>
                      </li>
                      <li class="menu-item {{ request()->is(['case/complete_case']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
                         <a href="{{ route('case.complete') }}" class="menu-link">
                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">সম্পাদিত মোকদ্দমার তালিকা</span>
+                           <span class="menu-text font-weight-bolder">প্রাপ্ত বয়স্ক গাভীর তালিকা</span>
                         </a>
                      </li>
                      <li class="menu-item {{ request()->is(['case/old/running']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
                         <a href="{{ url('case/old/running') }}" class="menu-link">
                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">চলমান মোকদ্দমা</span>
+                           <span class="menu-text font-weight-bolder">বকনা বাছুরের তালিকা</span>
                         </a>
                      </li>
                      <li class="menu-item {{ request()->is(['case/old']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
                         <a href="{{ url('case/old') }}" class="menu-link">
                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">পুরাতন নিস্পত্তিকৃত মোকদ্দমা</span>
+                           <span class="menu-text font-weight-bolder">এঁড়ে বাছুরের তালিকা</span>
                         </a>
                      </li>
                      @endif
@@ -147,12 +147,6 @@
                                </li>
                               @empty
                            @endforelse
-                           
-                           @if(count($case_status) == 0 && count($rm_case_status) == 0 && count($writ_case_status) == 0)
-                               <div class="d-flex align-items-center rounded p-5 mb-5">
-                                   <span>কোন নোটিফিকেশন পাওয়া যায়নি</span>
-                               </div>
-                           @endif
                        @endif
                      </ul>
                   </div>
@@ -163,7 +157,7 @@
 
             
 
-            <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+            <!-- <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                 <a href="javascript:;" class="menu-link menu-toggle">
                    <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i>মামলা নিরীক্ষা</span>
                    {{-- <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i>মামলার ধারাবাহিক বিবরণ </span> --}}
@@ -179,7 +173,7 @@
                          </a>
                       </li>
                 </div>
-             </li>
+             </li> -->
 
              <!-- {{-- <li class="menu-item {{ request()->is('case_audit') ? 'menu-item-open' : '' }}" aria-haspopup="true">
                 <a href="{{ route('case_audit.index') }}" class="menu-link">
@@ -188,7 +182,7 @@
              </li> --}} -->
 
             @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 27) 
-              <li class="menu-item {{ request()->is(['report/*']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+              <!-- <li class="menu-item {{ request()->is(['report/*']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="menu-text font-weight-bolder"><i class="fas fa-file-contract"></i> রিপোর্ট</span>
                     <i class="menu-arrow"></i>
@@ -204,7 +198,7 @@
                        </li>
                     </ul>
                  </div>
-              </li>
+              </li> -->
               <li class="menu-item menu-item-submenu  {{ request()->is('user-management','affidavit-committtee','advocate-management') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="menu-text font-weight-bolder"><i class="fas fa-users"></i> ইউজার সেটিংস</span>
@@ -220,7 +214,7 @@
                              <span class="menu-text font-weight-bolder">ইউজার ম্যানেজমেন্ট</span>
                           </a>
                        </li>
-                       <li class="menu-item" aria-haspopup="true">
+                       <!-- <li class="menu-item" aria-haspopup="true">
                           <a href="{{ url('affidavit-committtee') }}" class="menu-link">
                              <i class="menu-bullet menu-bullet-dot"><span></span></i>
                              <span class="menu-text font-weight-bolder">এফিডেভিট কমিটি</span>
@@ -232,7 +226,7 @@
                              <i class="menu-bullet menu-bullet-dot"><span></span></i>
                              <span class="menu-text font-weight-bolder">এডভোকেট ম্যানেজমেন্ট</span>
                           </a>
-                       </li>
+                       </li> -->
                        
                     </ul>
                  </div>
@@ -272,7 +266,7 @@
                              <span class="menu-text font-weight-bolder">মৌজার তালিকা</span>
                           </a>
                        </li>
-                       <li class="menu-item" aria-haspopup="true">
+                       <!-- <li class="menu-item" aria-haspopup="true">
                           <a href="{{ route('survey') }}" class="menu-link">
                              <i class="menu-bullet menu-bullet-dot"><span></span></i>
                              <span class="menu-text font-weight-bolder">সার্ভের ধরণ</span>
@@ -295,12 +289,12 @@
                              <i class="menu-bullet menu-bullet-dot"><span></span></i>
                              <span class="menu-text font-weight-bolder">কোর্টের ধরণ</span>
                           </a>
-                       </li>
+                       </li> -->
                     </ul>
                  </div>
               </li>
             @endif
-            <li class="menu-item {{ request()->is('office') ? 'menu-item-open' : '' }}" aria-haspopup="true">
+            <!-- <li class="menu-item {{ request()->is('office') ? 'menu-item-open' : '' }}" aria-haspopup="true">
                <a href="{{ route('office') }}" class="menu-link">
                   <span class="menu-text font-weight-bolder"><i class="la la-briefcase"></i> অফিস সেটিংস</span>
                </a>
@@ -309,7 +303,7 @@
                <a href="{{ route('court') }}" class="menu-link">
                   <span class="menu-text font-weight-bolder"><i class="fas fa-balance-scale"></i> আদালত সেটিংস</span>
                </a>
-            </li>
+            </li> -->
             @if(Auth::user()->role_id == 1)
               <li class="menu-item {{ request()->is('app.setting.index') ? 'menu-item-open' : '' }}" aria-haspopup="true">
                   <a href="{{ route('app.setting.index') }}" class="menu-link">
@@ -364,7 +358,7 @@
                    </div>
                </li>
             @endif
-            <li class="menu-item {{ request()->is('messages', 'messages/*', 'messages_recent','messages_request') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+            <!-- <li class="menu-item {{ request()->is('messages', 'messages/*', 'messages_recent','messages_request') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                    <a href="javascript:;" class="menu-link menu-toggle">
                       <span class="menu-text font-weight-bolder"><i class="fas fa-file-contract"></i> ইউজার ম্যানুয়াল</span>
                        
@@ -388,7 +382,7 @@
                        
                       </ul>
                    </div>
-               </li>
+               </li> -->
             <?php /*
             <li class="menu-item {{ request()->is('case/*') ? 'menu-item-open' : '' }}" aria-haspopup="true">
                <a href="{{ url('case') }}" class="menu-link">

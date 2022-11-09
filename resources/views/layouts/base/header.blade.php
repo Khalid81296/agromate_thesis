@@ -8,9 +8,7 @@
 @php
     $officeInfo = user_office_info();
     $roleID = Auth::user()->role_id;
-    $districtID = DB::table('office')
-    ->select('district_id')->where('id',Auth::user()->office_id)
-    ->first()->district_id;
+    $districtID = Auth::user()->district_id;
 
     $case_status = DB::table('case_register')
          ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))

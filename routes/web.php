@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ActionController;
 use App\Http\Controllers\HomeController;
@@ -87,6 +88,11 @@ Route::post('/csLogin', [LoginController::class, 'csLogin']);
 
 // Route::get('/', [DashboardController::class, 'logincheck']);
 Route::get('/logincheck', [DashboardController::class, 'logincheck']);
+Route::get('/registration', [RegistrationController::class, 'create'])->name('register');
+Route::post('/registration/store', [RegistrationController::class, 'store'])->name('register.store');
+route::get('/register/dropdownlist/getdependentdistrict/{id}', [RegistrationController::class , 'getDependentDistrict']);
+route::get('/register/dropdownlist/getdependentupazila/{id}', [RegistrationController::class , 'getDependentUpazila']);
+route::get('/register/dropdownlist/getdependentmouja/{id}', [RegistrationController::class , 'getDependentMouja']);
 // Route::get('public_home', [FrontHomeController::class, 'public_home']);
 Route::get('/', [FrontHomeController::class, 'public_home']);
 Route::get('hearing-case-list', [FrontHomeController::class, 'dateWaysCase'])->name('dateWaysCase');

@@ -8,8 +8,6 @@ use App\Models\User;
 use App\Models\Division;
 use App\Models\District;
 use App\Models\Upazila;
-use App\Models\RM_CaseRgister;
-use App\Models\RM_CaseHearing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\DB;
@@ -95,9 +93,7 @@ class ViewServiceProvider extends AppServiceProvider
             $rm_case_status = [];
             $officeInfo = user_office_info();
             $roleID = Auth::user()->role_id;
-            $districtID = DB::table('office')
-            ->select('district_id')->where('id',Auth::user()->office_id)
-            ->first()->district_id;
+            $districtID = Auth::user()->district_id;
 
             if( $roleID == 9 || $roleID == 10 || $roleID == 11  || $roleID == 21 ){
 
@@ -108,99 +104,8 @@ class ViewServiceProvider extends AppServiceProvider
                     ->where('case_register.upazila_id','=', $officeInfo->upazila_id)
                     ->where('case_register.action_user_group_id', $roleID)
                     ->get();
-                $rm_case_status = RM_CaseRgister::select('case_status_id', 'is_appeal', DB::raw('COUNT(id) as total_case'))
-                    ->where('upazila_id','=', $officeInfo->upazila_id)
-                    ->where('action_user_role_id', $roleID)
-                    ->where('is_appeal', '=', null)
-                    ->orWhere('is_appeal', '=', 0)
-                    // ->where('case_status_id', '20')
-                    ->groupBy('case_status_id')
-                    ->get();
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.upazila_id','=', $officeInfo->upazila_id)
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
+                
 
-            } elseif( $roleID == 22 || $roleID == 23){
-
-                $case_status = DB::table('case_register')
-                    ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-                    ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-                    ->groupBy('case_register.cs_id')
-                    ->where('case_register.upazila_id','=', $officeInfo->upazila_id)
-                    ->where('case_register.action_user_group_id', $roleID)
-                    ->get();
-                $rm_case_status = RM_CaseRgister::select('case_status_id', 'is_appeal', DB::raw('COUNT(id) as total_case'))
-                    ->where('division_id','=', $officeInfo->division_id)
-                    ->where('action_user_role_id', $roleID)
-                    ->where('is_appeal', '=', null)
-                    ->orWhere('is_appeal', '=', 0)
-                    // ->where('case_status_id', '20')
-                    ->groupBy('case_status_id')
-                    ->get();
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.upazila_id','=', $officeInfo->upazila_id)
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
-
-            } elseif( $roleID == 14 ) {
-                $case_status = DB::table('case_register')
-                    ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-                    ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-                    ->groupBy('case_register.cs_id')
-                    ->where('case_register.action_user_group_id', $roleID)
-                    ->get();
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
-
-            } elseif( $roleID == 15 ) {
-                $case_status = DB::table('case_register')
-                    ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-                    ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-                    ->groupBy('case_register.cs_id')
-                    ->where('case_register.action_user_group_id', $roleID)
-                    ->get();
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
-
-            } elseif( $roleID == 26 ) {
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
-
-            } elseif( $roleID == 12 ) {
-                $moujaIDs = DB::table('mouja_ulo')->where('ulo_office_id', Auth::user()->office_id)->pluck('mouja_id');
-                $case_status = DB::table('case_register')
-                    ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-                    ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-                    ->groupBy('case_register.cs_id')
-                    ->whereIn('case_register.mouja_id', $moujaIDs)
-                    ->where('case_register.action_user_group_id', $roleID)
-                    ->get();
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.mouja_id','=', $moujaIDs)
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
             } elseif( $roleID == 2 || $roleID == 27 ) {
                 $total_sf_count = DB::table('case_register')
                     ->where('is_sf', 1)
@@ -220,15 +125,10 @@ class ViewServiceProvider extends AppServiceProvider
                     ->get()
                     ->count();
 
-                $RmCaseHearingCount = RM_CaseHearing::select('rm_case_id')
-                    ->whereHas('rm_case_rgister',function($query){
-                        $query->where('status', 1);
-                    })
-                    ->get()
-                    ->count();
+                
                 // dd($dfsdf);  
 
-                $notification_count = $CaseResultCount + $CaseHearingCount + $total_sf_count+ $RmCaseHearingCount;
+                $notification_count = $CaseResultCount + $CaseHearingCount + $total_sf_count;
             } else {
                 //for role id : 5,6,7,8,13
                 $case_status = DB::table('case_register')
@@ -238,21 +138,7 @@ class ViewServiceProvider extends AppServiceProvider
                     ->where('case_register.district_id','=', $officeInfo->district_id)
                     ->where('case_register.action_user_group_id', $roleID)
                     ->get();
-                $rm_case_status = RM_CaseRgister::select('case_status_id', 'is_appeal', DB::raw('COUNT(id) as total_case'))
-                    ->where('action_user_role_id', $roleID)
-                    ->where('district_id', $officeInfo->district_id)
-                    ->where('is_appeal', '=', null)
-                    ->orWhere('is_appeal', '=', 0)
-                    // ->where('case_status_id', '20')
-                    ->groupBy('case_status_id')
-                    ->get();
-                $writ_case_status = DB::table('writ__case_register')
-                     ->select('writ__case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(writ__case_register.id) as total_case'))
-                     ->leftJoin('case_status', 'writ__case_register.cs_id', '=', 'case_status.id')
-                     ->groupBy('writ__case_register.cs_id')
-                     ->where('writ__case_register.district_id','=', $officeInfo->district_id)
-                     ->where('writ__case_register.action_user_group_id', $roleID)
-                     ->get();
+               
 
                 // dd($rm_case_status);   
             }
@@ -261,24 +147,15 @@ class ViewServiceProvider extends AppServiceProvider
                 foreach ($case_status as $row){
                      $notification_count += $row->total_case;
                 }
-                foreach ($rm_case_status as $row){
-                     $notification_count += $row->total_case;
-                }
-                foreach ($writ_case_status as $row){
-                     $notification_count += $row->total_case;
-                }
 
                 $view->with([
                     'notification_count' => $notification_count,
                     'case_status' => $case_status,
-                    'rm_case_status' => $rm_case_status,
-                    'writ_case_status' => $writ_case_status,
                 ]);
 
             } else {
                 $view->with([
                     'notification_count' => $notification_count,
-                    'RmCaseHearingCount' => $RmCaseHearingCount,
                     'CaseHearingCount' => $CaseHearingCount,
                     'CaseResultCount' => $CaseResultCount,
                     'total_sf_count' => $total_sf_count,

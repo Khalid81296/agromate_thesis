@@ -27,7 +27,7 @@ class MessageController extends Controller
             $users= DB::table('users')
                 ->orderBy('id','DESC')
                 ->join('role', 'users.role_id', '=', 'role.id')
-                ->join('office', 'users.office_id', '=', 'office.id')
+                ->leftjoin('office', 'users.office_id', '=', 'office.id')
                 ->leftJoin('district', 'office.district_id', '=', 'district.id')
                 ->leftJoin('upazila', 'office.upazila_id', '=', 'upazila.id')
                 ->select('users.*', 'role.role_name', 'office.office_name_bn', 'district.district_name_bn', 'upazila.upazila_name_bn');
@@ -36,7 +36,7 @@ class MessageController extends Controller
             $users= DB::table('users')
                 ->orderBy('id','DESC')
                 ->join('role', 'users.role_id', '=', 'role.id')
-                ->join('office', 'users.office_id', '=', 'office.id')
+                ->leftjoin('office', 'users.office_id', '=', 'office.id')
                 ->leftJoin('district', 'office.district_id', '=', 'district.id')
                 ->leftJoin('upazila', 'office.upazila_id', '=', 'upazila.id')
                 ->select('users.*', 'role.role_name', 'office.office_name_bn', 'district.district_name_bn', 'upazila.upazila_name_bn')

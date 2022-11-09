@@ -32,7 +32,7 @@ foreach ($cases as $val)
       <div class="card-counter primary">
          <a href="{{ route('case') }}"><i class="fa fas fa-layer-group text-white"></i></a>
          <span class="count-numbers"><a href="{{ route('case') }}"><?=en2bn($total_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case') }}">মোট মামলা</a></span>
+         <span class="count-name"><a href="{{ route('case') }}">মোট পশুর তালিকা</a></span>
       </div>
    </div>
 
@@ -40,80 +40,41 @@ foreach ($cases as $val)
       <div class="card-counter danger">
          <a href="{{ route('case.running') }}"><i class="fa fas fa-layer-group text-white"></i></a>
          <span class="count-numbers"><a href="{{ route('case.running') }}"><?=en2bn($running_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.running') }}">চলমান মামলা</a></span>
+         <span class="count-name"><a href="{{ route('case.running') }}">প্রাপ্ত বয়স্ক ষাঁড়ের তালিকা</a></span>
       </div>
    </div>
 
    <div class="col-md-3">
       <div class="card-counter info">
-         <a href="{{ route('case.appeal') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.appeal') }}"><?=en2bn($appeal_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.appeal') }}">আপিল মামলা</a></span>
+         <a href="{{ route('case.complete') }}"><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href="{{ route('case.complete') }}"><?=en2bn($completed_case)?></a></span>
+         <span class="count-name"><a href="{{ route('case.complete') }}">প্রাপ্ত বয়স্ক গাভীর তালিকা</a></span>
       </div>
    </div>
 
    <div class="col-md-3">
       <div class="card-counter success">
-         <a href="{{ route('case.complete') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.complete') }}"><?=en2bn($completed_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.complete') }}">সম্পাদিত মামলা</a></span>
+         <a href="{{ route('case.appeal') }}"><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href="{{ route('case.appeal') }}"><?=en2bn($appeal_case)?></a></span>
+         <span class="count-name"><a href="{{ route('case.appeal') }}">এঁড়ে বাছুরের তালিকা</a></span>
       </div>
    </div>
 </div>
 
 <div class="row mb-5">
    <div class="col-md-3">
-      <div class="card-counter warning">
-         <a href="{{ route('office') }}"><i class="fa fas fa-archway text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('office') }}"><?=en2bn($total_office)?></a></span>
-         <span class="count-name"><a href="{{ route('office') }}">মোট অফিস</a></span>
+      <div class="card-counter info">
+         <a href="{{ route('case.complete') }}"><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href="{{ route('case.complete') }}"><?=en2bn($completed_case)?></a></span>
+         <span class="count-name"><a href="{{ route('case.complete') }}">বকনা বাছুরের তালিকা</a></span>
       </div>
    </div>
-
+   
    <div class="col-md-3">
       <div class="card-counter violet">
          <a href="{{ route('user-management.index') }}"><i class="fa fas fa-users text-white"></i></a>
          <span class="count-numbers"><a href="{{ route('user-management.index') }}"><?=en2bn($total_user)?></a></span>
          <span class="count-name"><a href="{{ route('user-management.index') }}">মোট ইউজার</a></span>
-      </div>
-   </div>
-
-   <div class="col-md-3">
-      <div class="card-counter submarine">
-         <a href="{{ route('court') }}"><i class="fa fas fa-balance-scale text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('court') }}"><?=en2bn($total_court)?></a></span>
-         <span class="count-name"><a href="{{ route('court') }}">মোট আদালত</a></span>
-      </div>
-   </div>
-   <div class="col-md-3">
-      <div class="card-counter lightgreen">
-         <a href="{{ route('newSFlist') }}"><i class="fa fas fa-database text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('newSFlist') }}"><?=en2bn($total_sf_count)?></a></span>
-         <span class="count-name"><a href="{{ route('newSFlist') }}">এস এফ</a></span>
-      </div>
-   </div>
-</div>
-<div class="row mb-5">
-
-   <div class="col-md-3">
-      <div class="card-counter danger">
-         <a href="{{ route('case.old') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.old') }}"><?=en2bn($old_complete_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.old') }}">পুরাতন নিস্পন্ন মামলা</a></span>
-      </div>
-   </div>
-   <div class="col-md-3">
-      <div class="card-counter success">
-         <a href="{{ route('atcase.index') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('rmcase.index') }}"><?=en2bn($total_rm_case)?></a></span>
-         <span class="count-name"><a href="{{ route('rmcase.index') }}">মোট রাজস্ব মামলা</a></span>
-      </div>
-   </div>
-   <div class="col-md-3">
-      <div class="card-counter primary">
-         <a href="{{ route('atcase.index') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('atcase.index') }}"><?=en2bn($total_at_case)?></a></span>
-         <span class="count-name"><a href="{{ route('atcase.index') }}">মোট প্রশাসনিক মামলা</a></span>
       </div>
    </div>
 
@@ -127,7 +88,7 @@ foreach ($cases as $val)
             <!--begin::Info-->
             <div class="d-flex align-items-center flex-wrap mr-2">
                <!--begin::Page Title-->
-               <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5  font-size-h4">শুনানী/মামলার তারিখ</h5>
+               <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5  font-size-h4">শুনানী/পশুর তালিকার তারিখ</h5>
                <!--end::Page Title-->
                <!--begin::Action-->
                <div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-4 bg-gray-200"></div>
@@ -279,10 +240,10 @@ input[type="number"] {
          type: 'column'
       },
       title: {
-         text: 'বিভাগ ও জেলা ভিত্তিক মামলা'
+         text: 'বিভাগ ও জেলা ভিত্তিক পশুর তালিকা'
       },
       subtitle: {
-         text: 'মামলা'
+         text: 'পশুর তালিকা'
       },
       accessibility: {
          announceNewData: {
