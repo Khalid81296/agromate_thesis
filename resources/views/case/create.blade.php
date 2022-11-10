@@ -136,11 +136,11 @@ $pass_year_data .= '<option value="'.$i.'">'.$i.'</option>';
                             </div>
                             <div class="col-lg-4 mb-5" id="cowDiv">
                                 <label>বাচ্চার সংখ্যা <span class="text-danger">*</span></label>
-                                <input type="text" name="child_amount" id="child_amount" class="form-control form-control-sm common_datepicker" placeholder="৫" autocomplete="off" value="{{old('child_amount')}}" >
+                                <input type="text" name="child_amount" id="child_amount" class="form-control form-control-sm " placeholder="৫" autocomplete="off" value="{{old('child_amount')}}" >
                             </div>
                             <div class="col-lg-4 mb-5" id="cowDiv">
                                 <label>প্রতিদিন দুধ প্রদানের পরমাণ (লিটারে) <span class="text-danger">*</span></label>
-                                <input type="text" name="avg_milk_amount" id="avg_milk_amount" class="form-control form-control-sm common_datepicker" placeholder="১৫ লিটার" autocomplete="off" value="{{old('avg_milk_amount')}}" >
+                                <input type="text" name="avg_milk_amount" id="avg_milk_amount" class="form-control form-control-sm" placeholder="১৫ লিটার" autocomplete="off" value="{{old('avg_milk_amount')}}" >
                             </div>
 
                         </div>

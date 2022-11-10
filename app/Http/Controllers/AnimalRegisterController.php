@@ -23,7 +23,9 @@ class AnimalRegisterController extends Controller
         $query = DB::table('animal_register')
         ->orderBy('id','DESC')
         ->leftjoin('animal_type', 'animal_register.type_id', '=', 'animal_type.id')
-        ->select('animal_register.*', 'animal_type.type_name');
+        ->leftjoin('animal_cast_type', 'animal_register.cast_type', '=', 'animal_cast_type.id')
+        ->leftjoin('purpose_type', 'animal_register.purpose_type', '=', 'purpose_type.id')
+        ->select('animal_register.*', 'animal_type.type_name', 'animal_cast_type.type_name', 'purpose_type.type_name');
         //Add Conditions
         if(!empty($_GET['date_start'])  && !empty($_GET['date_end'])){
             // dd(1);
@@ -44,8 +46,8 @@ class AnimalRegisterController extends Controller
         
         // $roleID = Auth::user()->role_id;
         // dd($data['courts']);
-
-        $data['page_title'] = 'মোকদ্দমা এন্ট্রি রেজিষ্টারের তালিকা';
+        // return $data;
+        $data['page_title'] = 'সকল পশুর তালিকা';
         return view('case.index')->with($data);
     }
 
@@ -146,7 +148,8 @@ class AnimalRegisterController extends Controller
             'purpose_type'   => $request->purpose_type,
             'birth_date'   => date("Y-m-d", strtotime($dob_format)),
             'weight'   => $request->weight,
-            'weight'   => $request->weight,
+            'ownership_type'   => $request->ownership_type,
+            'buying_price'   => $request->buying_price,
             'child_amount'   => $request->child_amount,
             'avg_milk_amount'   => $request->avg_milk_amount,
             'anthrax'   => isset($request->anthrax) ? $request->anthrax : 0,
@@ -201,56 +204,15 @@ class AnimalRegisterController extends Controller
     {
         // dd($id);
         $data['info'] = DB::table('animal_register')
-        ->leftJoin('users', 'animal_register.gp_user_id', '=', 'users.id')
-        ->join('division', 'animal_register.division_id', '=', 'division.id')
-        ->join('district', 'animal_register.district_id', '=', 'district.id')
-        ->join('upazila', 'animal_register.upazila_id', '=', 'upazila.id')
-        ->join('mouja', 'animal_register.mouja_id', '=', 'mouja.id')
-        ->join('role', 'animal_register.action_user_group_id', '=', 'role.id')
-        ->join('case_status', 'animal_register.cs_id', '=', 'case_status.id')
-        ->join('case_badi', 'animal_register.id', '=', 'case_badi.case_id')
-        ->join('case_bibadi', 'animal_register.id', '=', 'case_bibadi.case_id')
-        ->select('animal_register.*','users.name', 'division.division_name_bn', 'district.distritype_name_bn', 'upazila.upazila_name_bn', 'mouja.mouja_name_bn', 'case_status.status_name', 'role.role_name', 'case_badi.badi_name', 'case_badi.badi_spouse_name', 'case_badi.badi_address', 'case_bibadi.bibadi_name', 'case_bibadi.bibadi_spouse_name', 'case_bibadi.bibadi_address')
+        ->leftjoin('animal_type', 'animal_register.type_id', '=', 'animal_type.id')
+        ->leftjoin('animal_cast_type', 'animal_register.cast_type', '=', 'animal_cast_type.id')
+        ->leftjoin('purpose_type', 'animal_register.purpose_type', '=', 'purpose_type.id')
+        ->select('animal_register.*', 'animal_type.type_name as cast_name', 'animal_cast_type.type_name as cast_name', 'purpose_type.type_name as purpose_name')
         ->where('animal_register.id', '=', $id)
         ->first();
 
-        // dd($data['info']);
-
-        $data['badis'] =DB::table('case_badi')
-        ->join('animal_register', 'case_badi.case_id', '=', 'animal_register.id')
-        ->select('case_badi.*')
-        ->where('case_badi.case_id', '=', $id)
-        ->get();
-
-        $data['bibadis'] =DB::table('case_bibadi')
-        ->join('animal_register', 'case_bibadi.case_id', '=', 'animal_register.id')
-        ->select('case_bibadi.*')
-        ->where('case_bibadi.case_id', '=', $id)
-        ->get();
-
-        $data['files'] =DB::table('case_other_files')
-        ->join('animal_register', 'case_other_files.case_id', '=', 'animal_register.id')
-        ->select('case_other_files.*')
-        ->where('case_other_files.case_id', '=', $id)
-        ->get();
-
-        $data['surveys'] =DB::table('case_survey')
-        ->join('animal_register', 'case_survey.case_id', '=', 'animal_register.id')
-        ->join('survey_type', 'case_survey.st_id', '=', 'survey_type.id')
-        ->join('land_type', 'case_survey.lt_id', '=', 'land_type.id')
-        ->select('case_survey.*','survey_type.st_name','land_type.lt_name')
-        ->where('case_survey.case_id', '=', $id)
-        ->get();
-
-        $data['sf_logs'] = DB::table('case_sf_log')
-        ->select('case_sf_log.*', 'users.name')
-        ->join('users', 'users.id', '=', 'case_sf_log.user_id')
-        ->where('case_sf_log.case_id', '=', $id)
-        ->get();
-
-        // dd($data['info']);
-
-        $data['page_title'] = 'মোকদ্দমার বিস্তারিত তথ্য'; //exit;
+        return $data;
+        $data['page_title'] = 'পশুর বিস্তারিত তথ্য'; //exit;
         return view('case.show')->with($data);
     }
 

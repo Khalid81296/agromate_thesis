@@ -33,15 +33,10 @@
          <thead class="thead-light font-size-h6">
             <tr>
                <th scope="col" width="30">#</th>
-               <th scope="col">মোকদ্দমা নং</th>
-               <th scope="col">মোকদ্দমার তারিখ</th>
-               <th scope="col">মোকদ্দমার ধরণ</th>
-               <th scope="col">উপজেলা</th>
-               <th scope="col">মৌজা</th>
-               <!-- <th scope="col">অফিস হতে প্রেরণের তারিখ</th>
-               <th scope="col">জবাব পাওয়ার তারিখ</th>
-               <th scope="col">বিজ্ঞ জি.পি নিকট প্রেরণ</th> -->
-               <!-- <th scope="col" width="100">স্ট্যাটাস</th> -->
+               <th scope="col">জন্ম তারিখ</th>
+               <th scope="col"> ধরণ</th>
+               <th scope="col">প্রজাতি</th>
+               <th scope="col">পালনের উদ্দেশ্য</th>
                <th scope="col" width="70">অ্যাকশন</th>
             </tr>
          </thead>
@@ -52,6 +47,8 @@
                <td>{{ $row->id }}</td>
                <td>{{ en2bn($row->birth_date) }}</td>
                <td>{{ isset($row->type_id) ? $row->type_name : '-'}}</td>
+               <td>{{ isset($row->cast_type) ? $row->type_name : '-'}}</td>
+               <td>{{ isset($row->purpose_type) ? $row->type_name : '-'}}</td>
 
                <td>
                   <div class="btn-group float-right">
