@@ -211,7 +211,7 @@ class AnimalRegisterController extends Controller
         ->where('animal_register.id', '=', $id)
         ->first();
 
-        return $data;
+        // return $data;
         $data['page_title'] = 'পশুর বিস্তারিত তথ্য'; //exit;
         return view('case.show')->with($data);
     }

@@ -115,7 +115,7 @@ $pass_year_data .= '<option value="'.$i.'">'.$i.'</option>';
                                     <input type="radio" name="ownership_type" value="1" checked="checked" />
                                     <span></span>নিজের খামারে জন্ম</label>
                                     <label class="radio">
-                                    <input type="radio" name="ownership_type" value="0" />
+                                    <input type="radio" name="ownership_type" value="2" />
                                     <span></span>কেনা পশু</label>
                                 </div>
                             </div>
