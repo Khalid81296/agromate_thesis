@@ -36,7 +36,6 @@
                <th scope="col">মোকদ্দমা নং</th>
                <th scope="col">মোকদ্দমার তারিখ</th>
                <th scope="col">মোকদ্দমার ধরণ</th>
-               <th scope="col">আদালতের নাম</th>
                <th scope="col">উপজেলা</th>
                <th scope="col">মৌজা</th>
                <!-- <th scope="col">অফিস হতে প্রেরণের তারিখ</th>
@@ -54,7 +53,6 @@
                <td>{{ $row->case_number }}</td>
                <td>{{ en2bn($row->case_date) }}</td>
                <td>{{ isset($row->ct_id) ? $row->ct_name : '-'}}</td>
-               <td>{{ $row->court_name }}</td>
                <td>{{ $row->upazila_name_bn }}</td>
                <td>{{ $row->mouja_name_bn }}</td>
 

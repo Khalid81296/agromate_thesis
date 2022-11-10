@@ -309,74 +309,74 @@ class SettingController extends Controller
             ->with('success', 'User data updated successfully');
     }*/
      //================== //Survey_Type====================//
-    //=====================Case_Type====================//
-    public function case_type_list()
+    //=====================animal_Type====================//
+    public function animal_type_list()
     {
         //
-        $data['case_type']= DB::table('case_type')
-                        ->select('case_type.*')
+        $data['animal_type']= DB::table('animal_type')
+                        ->select('animal_type.*')
                         ->get();
-        $data['page_title'] = 'মামলার ধরণ তালিকা';
+        $data['page_title'] = 'পশুর ধরণ তালিকা';
 
-        return view('setting.case_type_list')
+        return view('setting.animal_type_list')
         ->with($data);
     }
 
-    public function case_type_create()
+    public function animal_type_create()
     {
         //
         
-        $data['page_title'] = 'মামলার ধরণ এন্ট্রি ফরম';
+        $data['page_title'] = 'পশুর ধরণ এন্ট্রি ফরম';
 
-        return view('setting.case_type_add')->with($data);
+        return view('setting.animal_type_add')->with($data);
     }
 
-    public function case_type_store(Request $request)
+    public function animal_type_store(Request $request)
     {
         $request->validate([
-            'case_type_name' => 'required'
+            'animal_type_name' => 'required'
         ]);
         $data = [
-           'ct_name' => $request->case_type_name,
+           'type_name' => $request->animal_type_name,
            
            'status' => $request->status,
         ];
-        DB::table('case_type')->insert($data);
+        DB::table('animal_type')->insert($data);
         return redirect()->route('case-type')
-            ->with('success', 'মামলার ধরণ সফল ভাবে সংরক্ষণ করা হয়েছে');
+            ->with('success', 'পশুর ধরণ সফল ভাবে সংরক্ষণ করা হয়েছে');
     }
 
-    public function case_type_edit($id)
+    public function animal_type_edit($id)
     {
         //
-        $data['case_type']= DB::table('case_type')
-                        ->select('case_type.*')
-                        ->where('case_type.id', $id)
+        $data['animal_type']= DB::table('animal_type')
+                        ->select('animal_type.*')
+                        ->where('animal_type.id', $id)
                         ->first();
-        $data['page_title'] = 'মামলার ধরণ সংশোধন ফরম';
+        $data['page_title'] = 'পশুর ধরণ সংশোধন ফরম';
 
-        return view('setting.case_type_edit')->with($data);
+        return view('setting.animal_type_edit')->with($data);
     }
 
-    public function case_type_update(Request $request, $id='')
+    public function animal_type_update(Request $request, $id='')
     {
         $request->validate([
-            'case_type_name' => 'required'
+            'animal_type_name' => 'required'
         ]);
         $data = [
-           'ct_name' => $request->case_type_name,
+           'type_name' => $request->animal_type_name,
            'status' => $request->status,
         ];
 
-        $ID = DB::table('case_type')
+        $ID = DB::table('animal_type')
                 ->where('id', $id)
                 ->update($data);
 
         return redirect()->route('case-type')
-            ->with('success', 'মামলার ধরণ সফল ভাবে সংরক্ষণ করা হয়েছে');
+            ->with('success', 'পশুর ধরণ সফল ভাবে সংরক্ষণ করা হয়েছে');
     }
-     //================== //Case_Type====================//
-    //=====================Case_Type====================//
+     //================== //animal_Type====================//
+    //=====================animal_Type====================//
     public function case_status_list()
     {
         //
@@ -491,7 +491,7 @@ class SettingController extends Controller
             ->with('success', 'User data updated successfully');
     }
     /**/
-     //================== //Case_Type====================//
+     //================== //animal_Type====================//
 
 
 

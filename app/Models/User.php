@@ -45,13 +45,6 @@ class User extends Authenticatable
     public function role() {
         return $this->belongsTo(Role::class, 'role_id');
     }
-    public function office() {
-        return $this->belongsTo(Office::class, 'office_id');
-    }
-
-    public function caseSF(){
-		return $this->hasMany(CaseSF::class, 'id', 'user_id');
-	}
     public function message_sender(){
 		return $this->hasMany(Message::class, 'user_sender', 'id');
 	}

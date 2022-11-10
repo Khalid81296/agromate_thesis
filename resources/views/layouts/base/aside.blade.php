@@ -38,7 +38,7 @@
                </a>
             </li>
 
-            <li class="menu-item {{ request()->is('case/*', 'messages_group', 'case') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
+            <li class="menu-item {{ request()->is('animal/*', 'messages_group', 'case') ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                <a href="javascript:;" class="menu-link menu-toggle">
                   <span class="menu-text font-weight-bolder"><i class="fas fa-layer-group"></i>রেজিষ্টারকৃত পশুর তালিকা</span>
                   <i class="menu-arrow"></i>
@@ -46,40 +46,23 @@
                <div class="menu-submenu">
                   <i class="menu-arrow"></i>
                   <ul class="menu-subnav">
-                    {{-- @if (Auth::user()->role_id == 5 || Auth::user()->role_id == 8 || Auth::user()->role_id == 28)
+                     @if (Auth::user()->role_id == 2)
                         <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                           <a href="{{ url('case/add') }}" class="menu-link">
+                           <a href="{{ url('animal/add') }}" class="menu-link">
                               <i class="menu-bullet menu-bullet-dot"><span></span></i>
                               <span class="menu-text font-weight-bolder">নতুন পশু এন্ট্রি</span>
                            </a>
                         </li>
-                     @endif --}}
+                     @endif 
                     
                      @if(Auth::user()->role_id != 17 && Auth::user()->role_id != 18 && Auth::user()->role_id != 19 && Auth::user()->role_id != 20)
-                     <li class="menu-item {{ request()->is(['case/running_case']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ route('case.running') }}" class="menu-link">
+                     <li class="menu-item {{ request()->is(['animal/adult_ox']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
+                        <a href="{{ route('animal.adult_ox') }}" class="menu-link">
                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
                            <span class="menu-text font-weight-bolder">প্রাপ্ত বয়স্ক ষাঁড়ের তালিকা</span>
                         </a>
                      </li>
-                     <li class="menu-item {{ request()->is(['case/complete_case']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ route('case.complete') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">প্রাপ্ত বয়স্ক গাভীর তালিকা</span>
-                        </a>
-                     </li>
-                     <li class="menu-item {{ request()->is(['case/old/running']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ url('case/old/running') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">বকনা বাছুরের তালিকা</span>
-                        </a>
-                     </li>
-                     <li class="menu-item {{ request()->is(['case/old']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                        <a href="{{ url('case/old') }}" class="menu-link">
-                           <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                           <span class="menu-text font-weight-bolder">এঁড়ে বাছুরের তালিকা</span>
-                        </a>
-                     </li>
+                    
                      @endif
                   </ul>
                </div>
@@ -90,7 +73,7 @@
             @endphp
 
            
-            @if(Auth::user()->role_id != 17 && Auth::user()->role_id != 18 && Auth::user()->role_id != 19 && Auth::user()->role_id != 20 && Auth::user()->role_id != 29)
+            @if(Auth::user()->role_id != 1)
                {{-- // ========== Notification start =================== --}}
                <li class="menu-item {{ request()->is(['hearing_date', 'results_completed', 'new_sf_list']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                   <a href="javascript:;" class="menu-link menu-toggle">
@@ -109,9 +92,9 @@
                            <li class="menu-item" aria-haspopup="true">
                                <a href="{{ route('hearing_date') }}" class="menu-link">
                                <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">শুনানির তারিখ নির্ধারণ করা হয়েছে</span>
+                               <span class="menu-text font-weight-bolder">টিকা প্রদানের তারিখ হয়েছে এমন পশুর তালিকা</span>
                                <span class="menu-label">
-                                   <span class="label label-rounded label-danger">{{ $CaseHearingCount }}</span>
+                                   <span class="label label-rounded label-danger">১০</span>
                                </span>
                                </a>
                            </li>
@@ -119,18 +102,18 @@
                            <li class="menu-item" aria-haspopup="true">
                                <a href="{{ route('results_completed') }}" class="menu-link">
                                <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">ফলাফল সম্পন্ন</span>
+                               <span class="menu-text font-weight-bolder">পুনোরায় বীজ প্রদানের তারিখ হয়েছে এমন গাভীর তালিকা</span>
                                <span class="menu-label">
-                                   <span class="label label-rounded label-danger">{{ $CaseResultCount }}</span>
+                                   <span class="label label-rounded label-danger">৪</span>
                                </span>
                                </a>
                            </li>
                            <li class="menu-item" aria-haspopup="true">
                                <a href="{{ route('newSFlist') }}" class="menu-link">
                                <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                               <span class="menu-text font-weight-bolder">নতুন এস এফ</span>
+                               <span class="menu-text font-weight-bolder">বাচ্চা প্রশবের সময় হয়েছে এমন গাভীর তালিকা</span>
                                <span class="menu-label">
-                                   <span class="label label-rounded label-danger">{{ $total_sf_count }}</span>
+                                   <span class="label label-rounded label-danger">০</span>
                                </span>
                                </a>
                            </li>
@@ -153,35 +136,11 @@
                </li>
                {{-- =========== Notification End =================== --}}
             @endif
-            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7 || Auth::user()->role_id == 27)
+            @if (Auth::user()->role_id == 1 )
 
             
 
-            <!-- <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
-                <a href="javascript:;" class="menu-link menu-toggle">
-                   <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i>মামলা নিরীক্ষা</span>
-                   {{-- <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i>মামলার ধারাবাহিক বিবরণ </span> --}}
-                   <i class="menu-arrow"></i>
-                </a>
-                <div class="menu-submenu">
-                   <i class="menu-arrow"></i>
-                   <ul class="menu-subnav">
-                      <li class="menu-item {{ request()->is(['case_audit']) ? 'menu-item-active' : '' }}" aria-haspopup="true">
-                         <a href="{{ route('case_audit.index') }}" class="menu-link">
-                            <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                            <span class="menu-text font-weight-bolder">সাধারণ মামলা</span>
-                         </a>
-                      </li>
-                </div>
-             </li> -->
-
-             <!-- {{-- <li class="menu-item {{ request()->is('case_audit') ? 'menu-item-open' : '' }}" aria-haspopup="true">
-                <a href="{{ route('case_audit.index') }}" class="menu-link">
-                   <span class="menu-text font-weight-bolder"><i class="fas fa-backward"></i> মামলা নিরীক্ষা</span>
-                </a>
-             </li> --}} -->
-
-            @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 27) 
+            @if(Auth::user()->role_id == 1) 
               <!-- <li class="menu-item {{ request()->is(['report/*']) ? 'menu-item-open' : '' }}" aria-haspopup="true" data-menu-toggle="hover">
                  <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="menu-text font-weight-bolder"><i class="fas fa-file-contract"></i> রিপোর্ট</span>
@@ -266,44 +225,12 @@
                              <span class="menu-text font-weight-bolder">মৌজার তালিকা</span>
                           </a>
                        </li>
-                       <!-- <li class="menu-item" aria-haspopup="true">
-                          <a href="{{ route('survey') }}" class="menu-link">
-                             <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                             <span class="menu-text font-weight-bolder">সার্ভের ধরণ</span>
-                          </a>
-                       </li>
-                       <li class="menu-item" aria-haspopup="true">
-                          <a href="{{ route('case-type') }}" class="menu-link">
-                             <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                             <span class="menu-text font-weight-bolder">মামলার ধরণ</span>
-                          </a>
-                       </li>
-                       <li class="menu-item" aria-haspopup="true">
-                          <a href="{{ route('case-status') }}" class="menu-link">
-                             <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                             <span class="menu-text font-weight-bolder">মামলার স্ট্যাটাস</span>
-                          </a>
-                       </li>
-                       <li class="menu-item" aria-haspopup="true">
-                          <a href="{{ route('court-type') }}" class="menu-link">
-                             <i class="menu-bullet menu-bullet-dot"><span></span></i>
-                             <span class="menu-text font-weight-bolder">কোর্টের ধরণ</span>
-                          </a>
-                       </li> -->
+                      
                     </ul>
                  </div>
               </li>
             @endif
-            <!-- <li class="menu-item {{ request()->is('office') ? 'menu-item-open' : '' }}" aria-haspopup="true">
-               <a href="{{ route('office') }}" class="menu-link">
-                  <span class="menu-text font-weight-bolder"><i class="la la-briefcase"></i> অফিস সেটিংস</span>
-               </a>
-            </li>
-            <li class="menu-item {{ request()->is('court') ? 'menu-item-open' : '' }}" aria-haspopup="true">
-               <a href="{{ route('court') }}" class="menu-link">
-                  <span class="menu-text font-weight-bolder"><i class="fas fa-balance-scale"></i> আদালত সেটিংস</span>
-               </a>
-            </li> -->
+            
             @if(Auth::user()->role_id == 1)
               <li class="menu-item {{ request()->is('app.setting.index') ? 'menu-item-open' : '' }}" aria-haspopup="true">
                   <a href="{{ route('app.setting.index') }}" class="menu-link">

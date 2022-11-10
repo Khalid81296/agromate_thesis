@@ -22,7 +22,7 @@
     @yield('styles')
 </head>
 <body>
-    <div id="app" style="background-image: url(https://ldtax.gov.bd/assets/images/background.jpg); background-repeat: no-repeat; background-attachment: fixed;">
+    <div id="app" style="background-image: url({{ asset('media/farm-fields.jpg') }}); background-repeat: no-repeat; background-attachment: fixed;">
         <nav class="navbar navbar-expand-md navbar-light shadow-sm" style="background-color:#005200;">
             <div class="container">
                 <a class="navbar-brand" href="#">

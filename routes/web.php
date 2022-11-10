@@ -9,7 +9,7 @@ use App\Http\Controllers\ActionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\CourtController;
-use App\Http\Controllers\CaseRegisterController;
+use App\Http\Controllers\AnimalRegisterController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\AffidavitController;
 use App\Http\Controllers\AdvocateController;
@@ -144,47 +144,23 @@ Route::middleware('auth')->group(function () {
     // Route::post('store-file', [FileController::class, 'store']);
 
     /////*************** Case Register *************/////
-	// Route::resource('case', CaseRegisterController::class);
-    Route::get('/case', [CaseRegisterController::class, 'index'])->name('case');
-    Route::get('/case/running_case', [CaseRegisterController::class, 'running_case'])->name('case.running');
-    Route::get('/case/appeal_case', [CaseRegisterController::class, 'appeal_case'])->name('case.appeal');
-    Route::get('/case/complete_case', [CaseRegisterController::class, 'complete_case'])->name('case.complete');
+	// Route::resource('case', AnimalRegisterController::class);
+    Route::get('/animal', [AnimalRegisterController::class, 'index'])->name('case');
+    Route::get('/amimal/adult_ox', [AnimalRegisterController::class, 'running_case'])->name('animal.adult_ox');
 
-        //===================Old Running Case===========//
-    Route::get('/case/old/running', [CaseRegisterController::class, 'old_running_case'])->name('case.old.running');
-    Route::get('/case/old/running/create', [CaseRegisterController::class, 'create_old_running_case']);
-    Route::post('/case/old/running/save', [CaseRegisterController::class, 'store_old_running_case']);
+       
+    Route::get('/animal/add', [AnimalRegisterController::class, 'create']);
+    Route::post('/animal/save', [AnimalRegisterController::class, 'store']);
+    Route::get('/animal/details/{id}', [AnimalRegisterController::class, 'show'])->name('animal.details');
+    Route::get('/animal/details_pdf/{id}', [AnimalRegisterController::class, 'details_pdf'])->name('animal.details_pdf');
+    Route::get('/animal/edit/{id}', [AnimalRegisterController::class, 'edit'])->name('case.edit');
+    Route::post('/animal/update/{id}', [AnimalRegisterController::class, 'update']);
 
-        //===================//Old Running Case===========//
-    Route::get('/case/old', [CaseRegisterController::class, 'old_case'])->name('case.old');
-    Route::get('/case/add', [CaseRegisterController::class, 'create']);
-    Route::get('/case/create', [CaseRegisterController::class, 'old_case_create']);
-    Route::post('/case/save', [CaseRegisterController::class, 'store']);
-    Route::post('/case/saved', [CaseRegisterController::class, 'old_case_store']);
-    Route::post('/case/appeal/save/{id}', [CaseRegisterController::class, 'store_appeal_case']);
-    Route::get('/case/details/{id}', [CaseRegisterController::class, 'show'])->name('case.details');
-    Route::get('/case/details_pdf/{id}', [CaseRegisterController::class, 'details_pdf'])->name('case.details_pdf');
-    Route::get('/case/sflog/details/{id}', [CaseRegisterController::class, 'sflog_details'])->name('case.sflog.details');
-    Route::get('/case/edit/{id}', [CaseRegisterController::class, 'edit'])->name('case.edit');
-    Route::get('/case/old/edit/{id}', [CaseRegisterController::class, 'old_case_edit'])->name('case.old_edit');
-    Route::post('/case/update/{id}', [CaseRegisterController::class, 'update']);
-    Route::post('/case/old/update/{id}', [CaseRegisterController::class, 'old_case_update'])->name('case.old_update');
-    Route::get('/case/appeal/create/{id}', [CaseRegisterController::class, 'create_appeal_case'])->name('case.create_appeal');
-    route::get('/case/dropdownlist/getdependentdistrict/{id}', [CaseRegisterController::class , 'getDependentDistrict']);
-    route::get('/case/dropdownlist/getdependentupazila/{id}', [CaseRegisterController::class , 'getDependentUpazila']);
-    route::get('/case/dropdownlist/getdependentoffice/{id}', [CaseRegisterController::class , 'getDependentOffice']);
-    route::get('/case/dropdownlist/getdependentdistrictoffice/{id}', [CaseRegisterController::class , 'getDependentDistrictOffice']);
-    route::get('/case/dropdownlist/getdependentupazilaoffice/{id}', [CaseRegisterController::class , 'getDependentUpazilaOffice']);
-    route::get('/court/dropdownlist/getdependentcourt/{id}', [CaseRegisterController::class , 'getDependentCourt']);
-    route::get('/case/dropdownlist/getdependentmouja/{id}', [CaseRegisterController::class , 'getDependentMouja']);
-    route::get('/case/dropdownlist/getdependentgp/{id}', [CaseRegisterController::class , 'getDependentGp']);
-    route::get('/case/dropdownlist/getdependentappealcourt/{id}', [CaseRegisterController::class , 'getDependentAppealCourt']);
-    route::get('/case/dropdownlist/getdependentoldcasecourt/{id}', [CaseRegisterController::class , 'getDependentOldCaseCourt']);
-    route::get('/case/dropdownlist/getdependentoldcaseno/{id}', [CaseRegisterController::class , 'getDependentOldCaseID']);
-    route::get('/case/dropdownlist/getdependentoldpreviouscaseno/{id}', [CaseRegisterController::class , 'getDependentOldPreviousCaseID']);
-    route::post('/case/ajax_badi_del/{id}', [CaseRegisterController::class , 'ajaxBadiDelete']);
-    route::post('/case/ajax_bibadi_del/{id}', [CaseRegisterController::class , 'ajaxBibadiDelete']);
-    route::post('/case/ajax_survey_del/{id}', [CaseRegisterController::class , 'ajaxSurvayDelete']);
+
+    route::get('/case/dropdownlist/getdependentdistrict/{id}', [AnimalRegisterController::class , 'getDependentDistrict']);
+    route::get('/case/dropdownlist/getdependentupazila/{id}', [AnimalRegisterController::class , 'getDependentUpazila']);
+    route::get('/case/dropdownlist/getdependentmouja/{id}', [AnimalRegisterController::class , 'getDependentMouja']);
+    
 
 
     ////********************Other Case Register*****************************///
@@ -201,14 +177,6 @@ Route::middleware('auth')->group(function () {
 
 
     /////****************** RM Report Module *************/////
-
-    //============ Case Activity Log Start ==============//
-    Route::get('/case_audit', [CaseActivityLogController::class, 'index'])->name('case_audit.index');
-    Route::get('/case_audit/details/{id}', [CaseActivityLogController::class, 'show'])->name('case_audit.show');
-    Route::get('/case_audit/pdf-Log/{id}', [CaseActivityLogController::class, 'caseActivityPDFlog'])->name('case_audit.caseActivityPDFlog');
-    Route::get('/case_audit/case_details/{id}', [CaseActivityLogController::class, 'reg_case_details'])->name('case_audit.reg_case_details');
-    Route::get('/case_audit/sf/details/{id}', [CaseActivityLogController::class, 'sflog_details'])->name('case_audit.sf.details');
-    //============ Case Activity Log End ==============//
 
 
     /////************** User Management **************/////
@@ -227,24 +195,13 @@ Route::middleware('auth')->group(function () {
     // Route::get('/my-profile', [MyprofileController::class, 'index'])->name('my-profile.index');
     /////************** Office Setting **************/////
     // Route::resource('office-setting', OfficeController::class);
-    Route::get('/office', [OfficeController::class, 'index'])->name('office');
-    route::get('/office/create', [OfficeController::class, 'create'])->name('office.create');
-      Route::post('/office/save', [OfficeController::class, 'store'])->name('office.save');
-    route::get('/office/edit/{id}', [OfficeController::class, 'edit'])->name('office.edit');
-    route::post('/office/update/{id}', [OfficeController::class, 'update'])->name('office.update');
-    route::get('/office/dropdownlist/getdependentdistrict/{id}', [OfficeController::class , 'getDependentDistrict']);
-    route::get('/office/dropdownlist/getdependentupazila/{id}', [OfficeController::class , 'getDependentUpazila']);
+    
 
 
     /////************** Office_ULO Setting **************/////
     /////************** Court Setting **************/////
     // Route::resource('court-setting', CourtController::class);
-    route::get('/court', [CourtController::class, 'index'])->name('court');
-    route::get('/court/create', [CourtController::class, 'create'])->name('court.create');
-    Route::post('/court/save', [CourtController::class, 'store'])->name('court.save');
-    route::get('/court/edit/{id}', [CourtController::class, 'edit'])->name('court.edit');
-    route::post('/court/update/{id}', [CourtController::class, 'update'])->name('court.update');
-    route::get('/court-setting/dropdownlist/getdependentdistrict/{id}', [CourtController::class , 'getDependentDistrict']);
+    
 
     /////************** General Setting **************/////
     // Route::resource('setting', SettingController::class);
@@ -265,14 +222,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings/mouja/edit/{id}', [SettingController::class, 'mouja_edit'])->name('mouja.edit');
     Route::post('/settings/mouja/save', [SettingController::class, 'mouja_save'])->name('mouja.save');
     Route::post('/settings/mouja/update/{id}', [SettingController::class, 'mouja_update'])->name('mouja.update');
-    Route::get('/settings/survey', [SettingController::class, 'survey_type_list'])->name('survey');
+   
     /*Route::get('/survey/edit/{id}', [SettingController::class, 'survey_edit'])->name('survey.edit');
     Route::post('/survey/update/{id}', [SettingController::class, 'survey_update'])->name('survey.update');*/
-     Route::get('/case_type', [SettingController::class, 'case_type_list'])->name('case-type');
-     Route::get('/case_type/add', [SettingController::class, 'case_type_create'])->name('case_type.add');
-     Route::post('/case_type/store', [SettingController::class, 'case_type_store'])->name('case_type.store');
-     Route::get('/case_type/edit/{id}', [SettingController::class, 'case_type_edit'])->name('case_type.edit');
-     Route::post('/case_type/update/{id}', [SettingController::class, 'case_type_update'])->name('case_type.update');
+     Route::get('/animal_type', [SettingController::class, 'animal_type_list'])->name('case-type');
+     Route::get('/animal_type/add', [SettingController::class, 'animal_type_create'])->name('animal_type.add');
+     Route::post('/animal_type/store', [SettingController::class, 'animal_type_store'])->name('animal_type.store');
+     Route::get('/animal_type/edit/{id}', [SettingController::class, 'animal_type_edit'])->name('animal_type.edit');
+     Route::post('/animal_type/update/{id}', [SettingController::class, 'animal_type_update'])->name('animal_type.update');
 
 
      Route::get('/case_status', [SettingController::class, 'case_status_list'])->name('case-status');

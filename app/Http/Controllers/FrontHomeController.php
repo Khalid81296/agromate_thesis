@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 // use Auth;
 use App\Models\Dashboard;
 use App\Models\CaseRegister;
-use App\Http\Resources\calendar\CaseHearingCollection;
 use App\Models\RM_CaseHearing;
 use App\Models\Writ_CaseHearing;
 use App\Models\AtCaseRegister;
@@ -31,12 +30,9 @@ class FrontHomeController extends Controller
     //   }else{
         // return $cases = CaseHearing::orderby('id', 'DESC')->get();
 
-        $cases = CaseHearing::select('id','case_id', 'hearing_comment', 'hearing_date' ,DB::raw('count(*) as total'))
-        ->orderby('id', 'DESC')
-        ->groupBy('hearing_date');
-        $data['case'] = CaseHearingCollection::collection($cases->get());
+       
 
-        
+        $data = '';
 
         // return $data;
         // return $data =  array_merge($data['case'], $data['rm_case']);

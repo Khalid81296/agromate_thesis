@@ -200,7 +200,7 @@ $officeInfo = user_office_info();
          //}
 
          // Load Court
-         var courtID = jQuery(this).val();
+         /*var courtID = jQuery(this).val();
          // var category_id = jQuery('#category_id option:selected').val();
          jQuery("#court_id").after('<div class="loadersmall"></div>');
          // $("#loading").html("<img src='{{ asset('media/preload.gif') }}' />");
@@ -228,7 +228,7 @@ $officeInfo = user_office_info();
                   // $('select[name="mouja"] .overlay').remove();
                   // $("#loading").hide();
                }
-            });
+            });*/
          //}
          /*else
          {

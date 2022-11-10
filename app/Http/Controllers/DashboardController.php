@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 // use Auth;
 use App\Models\Dashboard;
-use App\Models\CaseRegister;
+use App\Models\AnimalRegister;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -69,30 +69,29 @@ class DashboardController extends Controller
          // Superadmi dashboard
 
          // Counter
-         $data['total_case'] = DB::table('case_register')->count();
-         $data['running_case'] = DB::table('case_register')->where('status', 1)->count();
-         $data['old_complete_case'] = DB::table('case_register')->where('status', 1)->where('is_old',1)->count();
-         $data['appeal_case'] = DB::table('case_register')->where('status', 2)->count();
-         $data['completed_case'] = DB::table('case_register')->where('status', 3)->count();
+         $data['total_case'] = DB::table('animal_register')->count();
+         $data['running_case'] = DB::table('animal_register')->count();
+         $data['old_complete_case'] = DB::table('animal_register')->count();
+         $data['appeal_case'] = DB::table('animal_register')->count();
+         $data['completed_case'] = DB::table('animal_register')->count();
 
          $data['total_office'] = DB::table('office')->whereNotIn('id', [1,2,7])->count();
          $data['total_user'] = DB::table('users')->count();
          $data['total_mouja'] = DB::table('mouja')->count();
-         $data['total_ct'] = DB::table('case_type')->count();
-         $data['total_sf_count'] = CaseRegister::orderby('id', 'desc')->where('is_sf', 1)->where('status', 1)->get()->count();
+         $data['total_ct'] = DB::table('animal_type')->count();
 
-         $data['cases'] = DB::table('case_register')->select('case_register.*')->get();
+         $data['cases'] = DB::table('animal_register')->select('animal_register.*')->get();
 
             // Get case status by group
-         $data['case_status'] = DB::table('case_register')
-         ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-         ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-         ->groupBy('case_register.cs_id')
-         ->where('case_register.action_user_group_id', $roleID)
+         $data['case_status'] = DB::table('animal_register')
+         ->select('animal_register.type_id', DB::raw('COUNT(animal_register.id) as total_case'))
+         // ->leftJoin('case_status', 'animal_register.type_id', '=', 'case_status.id')
+         ->groupBy('animal_register.type_id')
+         ->where('animal_register.action_user_group_id', $roleID)
          ->get();
 
-         $data['cases'] = DB::table('case_register')
-         ->select('case_register.*')
+         $data['cases'] = DB::table('animal_register')
+         ->select('animal_register.*')
          ->get();
 
          // Drildown Statistics
@@ -153,20 +152,20 @@ class DashboardController extends Controller
          // Superadmin dashboard
 
          // Counter
-         $data['total_case'] = DB::table('case_register')->count();
-         $data['old_complete_case'] = DB::table('case_register')->where('status', 3)->where('is_old',1)->count();
-         $data['running_case'] = DB::table('case_register')->where('status', 1)->where('is_old',0)->count();
-         $data['appeal_case'] = DB::table('case_register')->where('status', 2)->count();
-         $data['completed_case'] = DB::table('case_register')->where('status', 3)->where('is_old',0)->count();
+         $data['total_case'] = DB::table('animal_register')->count();
+         $data['old_complete_case'] = DB::table('animal_register')->count();
+         $data['running_case'] = DB::table('animal_register')->count();
+         $data['appeal_case'] = DB::table('animal_register')->count();
+         $data['completed_case'] = DB::table('animal_register')->count();
 
          $data['total_office'] = DB::table('office')->whereNotIn('id', [1,2,7])->count();
          $data['total_user'] = DB::table('users')->count();
          $data['total_mouja'] = DB::table('mouja')->count();
-         $data['total_ct'] = DB::table('case_type')->count();
-         $data['total_sf_count'] = CaseRegister::orderby('id', 'desc')->where('is_sf', 1)->where('status', 1)->get()->count();
+         $data['total_ct'] = DB::table('animal_type')->count();
+         $data['total_sf_count'] = AnimalRegister::orderby('id', 'desc')->get()->count();
 
-         $data['cases'] = DB::table('case_register')
-         ->select('case_register.*')
+         $data['cases'] = DB::table('animal_register')
+         ->select('animal_register.*')
          ->get();
 
          // Drildown Statistics
@@ -182,188 +181,10 @@ class DashboardController extends Controller
       }
    }
 
-    /*public function receive($statusID)
-    {
-        $data['cases'] = DB::table('case_register')
-        ->join('court', 'case_register.court_id', '=', 'court.id')
-        ->join('district', 'case_register.district_id', '=', 'district.id')
-        ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-        ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-        ->select('case_register.*', 'court.court_name', 'mouja.mouja_name_bn', 'district.district_name_bn', 'upazila.upazila_name_bn')
-
-        ->where('case_register.cs_id', '=', $statusID)
-        ->get();
-
-        // dd($data['cases']);
-
-        // return view('dashboard.receive', compact('page_title', 'cases'))
-        // ->with('i', (request()->input('page',1) - 1) * 5);
-
-        // All user list
-        // $cases = CaseRegister::latest()->paginate(5);
-        // $data['page_title'] = 'নতুন মামলা রেজিষ্টার এন্ট্রি ফরম'; //exit;
-
-        $data['page_title'] = 'মামলার তালিকা';
-        return view('dashboard.receive')->with($data);
-     }   */
-
-
-     public function hearing_date_today()
-     {
-       $data['hearing'] = DB::table('case_hearing')
-       ->join('case_register', 'case_hearing.case_id', '=', 'case_register.id')
-       ->join('court', 'case_register.court_id', '=', 'court.id')
-       ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-       ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-       ->select('case_hearing.*', 'case_register.id', 'case_register.court_id', 'case_register.case_number', 'case_register.status', 'court.court_name')
-       ->where('case_hearing.hearing_date', '=', date('Y-m-d'))
-       ->get();
-
-        // dd($data['hearing']);
-
-       $data['page_title'] = 'আজকের দিনে শুনানী/মামলার তারিখ';
-       return view('dashboard.hearing_date')->with($data);
-    }
-
-
-    public function hearing_date_tomorrow()
-    {
-       $d = date('Y-m-d',strtotime('+1 day')) ;
-       $data['hearing'] = DB::table('case_hearing')
-       ->join('case_register', 'case_hearing.case_id', '=', 'case_register.id')
-       ->join('court', 'case_register.court_id', '=', 'court.id')
-       ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-       ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-       ->select('case_hearing.*', 'case_register.id', 'case_register.court_id', 'case_register.case_number', 'case_register.status', 'court.court_name')
-       ->where('case_hearing.hearing_date', '=', $d)
-       ->get();
-
-        // dd($data['hearing']);
-
-       $data['page_title'] = 'আগামী দিনে শুনানী/মামলার তারিখ';
-       return view('dashboard.hearing_date')->with($data);
-    }
-
-
-    public function hearing_date_nextWeek()
-    {
-
-       $d = date('Y-m-d',strtotime('+7 day')) ;
-       $data['hearing'] = DB::table('case_hearing')
-       ->join('case_register', 'case_hearing.case_id', '=', 'case_register.id')
-       ->join('court', 'case_register.court_id', '=', 'court.id')
-       ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-       ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-       ->select('case_hearing.*', 'case_register.id', 'case_register.court_id', 'case_register.case_number', 'case_register.status', 'court.court_name')
-       ->where('case_hearing.hearing_date', '>=', date('Y-m-d'))
-       ->where('case_hearing.hearing_date', '<=', $d)
-       ->get();
-
-        // dd($data['hearing']);
-
-       $data['page_title'] = 'আগামী সপ্তাহের শুনানী/মামলার তারিখ';
-       return view('dashboard.hearing_date')->with($data);
-    }
-
-
-    public function hearing_date_nextMonth()
-    {
-       $d = date('Y-m-d',strtotime('+1 month')) ;
-       /* $m = date('m',strtotime($d));
-       dd($d);*/
-       $data['hearing'] = DB::table('case_hearing')
-       ->join('case_register', 'case_hearing.case_id', '=', 'case_register.id')
-       ->join('court', 'case_register.court_id', '=', 'court.id')
-       ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-       ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-       ->select('case_hearing.*', 'case_register.id', 'case_register.court_id', 'case_register.case_number', 'case_register.status', 'court.court_name')
-       ->where('case_hearing.hearing_date', '>=', date('Y-m-d'))
-       ->where('case_hearing.hearing_date', '<=', $d)
-       ->get();
-
-        // dd($data['hearing']);
-
-       $data['page_title'] = 'আগামী মাসের শুনানী/মামলার তারিখ';
-       return view('dashboard.hearing_date')->with($data);
-    }
-
-    public function hearing_case_details($id)
-    {
-
-     $data['info'] = DB::table('case_register')
-     ->join('court', 'case_register.court_id', '=', 'court.id')
-     ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-     ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-     // ->join('case_type', 'case_register.ct_id', '=', 'case_type.id')
-     ->join('case_status', 'case_register.cs_id', '=', 'case_status.id')
-     // ->join('case_badi', 'case_register.id', '=', 'case_badi.case_id')
-     // ->join('case_bibadi', 'case_register.id', '=', 'case_bibadi.case_id')
-     ->select('case_register.*', 'court.court_name', 'upazila.upazila_name_bn', 'mouja.mouja_name_bn',  'case_status.status_name')
-     ->where('case_register.id', '=', $id)
-     ->first();
-		// dd($data['info']);
-     	// dd($data['info']);
-
-     $data['badis'] = DB::table('case_badi')
-     ->join('case_register', 'case_badi.case_id', '=', 'case_register.id')
-     ->select('case_badi.*')
-     ->where('case_badi.case_id', '=', $id)
-     ->get();
-
-     $data['bibadis'] = DB::table('case_bibadi')
-     ->join('case_register', 'case_bibadi.case_id', '=', 'case_register.id')
-     ->select('case_bibadi.*')
-     ->where('case_bibadi.case_id', '=', $id)
-     ->get();
-
-     $data['surveys'] = DB::table('case_survey')
-     ->join('case_register', 'case_survey.case_id', '=', 'case_register.id')
-     ->join('survey_type', 'case_survey.st_id', '=', 'survey_type.id')
-     ->join('land_type', 'case_survey.lt_id', '=', 'land_type.id')
-     ->select('case_survey.*','survey_type.st_name','land_type.lt_name')
-     ->where('case_survey.case_id', '=', $id)
-     ->get();
-
-        // Get SF Details
-     $data['sf'] = DB::table('case_sf')
-     ->select('case_sf.*')
-     ->where('case_sf.case_id', '=', $id)
-     ->first();
-        // dd($data['sf']);
-
-        // Get SF Details
-     $data['logs'] = DB::table('case_log')
-     ->select('case_log.comment', 'case_log.created_at', 'case_status.status_name', 'role.role_name', 'users.name')
-     ->join('case_status', 'case_status.id', '=', 'case_log.status_id')
-     ->leftJoin('role', 'case_log.send_user_group_id', '=', 'role.id')
-     ->join('users', 'case_log.user_id', '=', 'users.id')
-     ->where('case_log.case_id', '=', $id)
-     ->orderBy('case_log.id', 'desc')
-     ->get();
-        // dd($data['sf']);
-
-        // Get SF Details
-     $data['hearings'] = DB::table('case_hearing')
-     ->select('case_hearing.*')
-     ->where('case_hearing.case_id', '=', $id)
-     ->orderBy('case_hearing.id', 'desc')
-     ->get();
-
-        // Dropdown
-     $data['roles'] = DB::table('role')
-     ->select('id', 'role_name')
-     ->where('in_action', '=', 1)
-     ->orderBy('sort_order', 'asc')
-     ->get();
-
-      // dd($data['bibadis']);
-
-     $data['page_title'] = 'শুনানী মামলার বিস্তারিত তথ্য';
-     return view('dashboard.hearing_case_details')->with($data);
-  }
+     
 
   public function get_drildown_case_count($division=NULL, $district=NULL, $upazila=NULL, $status=NULL) {
-     $query = DB::table('case_register');
+     $query = DB::table('animal_register');
 
      if($division != NULL){
        $query->where('division_id', $division);
@@ -387,37 +208,37 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CaseRegister  $caseRegister
+     * @param  \App\Models\AnimalRegister  $AnimalRegister
      * @return \Illuminate\Http\Response
      */
     /*public function case_details($id)
     {
-        $data['info'] = DB::table('case_register')
-        ->join('court', 'case_register.court_id', '=', 'court.id')
-        ->join('upazila', 'case_register.upazila_id', '=', 'upazila.id')
-        ->join('mouja', 'case_register.mouja_id', '=', 'mouja.id')
-        ->join('case_type', 'case_register.ct_id', '=', 'case_type.id')
-        ->join('case_status', 'case_register.cs_id', '=', 'case_status.id')
-        ->join('case_badi', 'case_register.id', '=', 'case_badi.case_id')
-        ->join('case_bibadi', 'case_register.id', '=', 'case_bibadi.case_id')
-        ->select('case_register.*', 'court.court_name', 'upazila.upazila_name_bn', 'mouja.mouja_name_bn', 'case_type.ct_name', 'case_status.status_name', 'case_badi.badi_name', 'case_badi.badi_spouse_name', 'case_badi.badi_address', 'case_bibadi.bibadi_name', 'case_bibadi.bibadi_spouse_name', 'case_bibadi.bibadi_address')
-        ->where('case_register.id', '=', $id)
+        $data['info'] = DB::table('animal_register')
+        ->join('court', 'animal_register.court_id', '=', 'court.id')
+        ->join('upazila', 'animal_register.upazila_id', '=', 'upazila.id')
+        ->join('mouja', 'animal_register.mouja_id', '=', 'mouja.id')
+        ->join('animal_type', 'animal_register.ct_id', '=', 'animal_type.id')
+        ->join('case_status', 'animal_register.cs_id', '=', 'case_status.id')
+        ->join('case_badi', 'animal_register.id', '=', 'case_badi.case_id')
+        ->join('case_bibadi', 'animal_register.id', '=', 'case_bibadi.case_id')
+        ->select('animal_register.*', 'court.court_name', 'upazila.upazila_name_bn', 'mouja.mouja_name_bn', 'animal_type.ct_name', 'case_status.status_name', 'case_badi.badi_name', 'case_badi.badi_spouse_name', 'case_badi.badi_address', 'case_bibadi.bibadi_name', 'case_bibadi.bibadi_spouse_name', 'case_bibadi.bibadi_address')
+        ->where('animal_register.id', '=', $id)
         ->first();
 
         $data['badis'] = DB::table('case_badi')
-        ->join('case_register', 'case_badi.case_id', '=', 'case_register.id')
+        ->join('animal_register', 'case_badi.case_id', '=', 'animal_register.id')
         ->select('case_badi.*')
         ->where('case_badi.case_id', '=', $id)
         ->get();
 
         $data['bibadis'] = DB::table('case_bibadi')
-        ->join('case_register', 'case_bibadi.case_id', '=', 'case_register.id')
+        ->join('animal_register', 'case_bibadi.case_id', '=', 'animal_register.id')
         ->select('case_bibadi.*')
         ->where('case_bibadi.case_id', '=', $id)
         ->get();
 
         $data['surveys'] = DB::table('case_survey')
-        ->join('case_register', 'case_survey.case_id', '=', 'case_register.id')
+        ->join('animal_register', 'case_survey.case_id', '=', 'animal_register.id')
         ->join('survey_type', 'case_survey.st_id', '=', 'survey_type.id')
         ->join('land_type', 'case_survey.lt_id', '=', 'land_type.id')
         ->select('case_survey.*','survey_type.st_name','land_type.lt_name')
@@ -538,7 +359,7 @@ class DashboardController extends Controller
 
 
         // Get Case Data
-        $case = DB::table('case_register')
+        $case = DB::table('animal_register')
         ->select('id', 'cs_id', 'court_id', 'case_number', 'case_date', 'ct_id', 'mouja_id', 'upazila_id', 'district_id', 'tafsil', 'chowhaddi', 'show_cause_file', 'created_at')
         ->where('id', $caseID)
         ->first();
@@ -565,7 +386,7 @@ class DashboardController extends Controller
         'status'       => 2,
         'updated_at'    => date('Y-m-d H:i:s'),
         ];
-        DB::table('case_register')->where('id', $caseID)->update($case_data);
+        DB::table('animal_register')->where('id', $caseID)->update($case_data);
 
         return response()->json(['success'=>'Data is successfully added']);*/
      }
@@ -612,7 +433,7 @@ class DashboardController extends Controller
         //'status'       => 2,
         //'updated_at'    => date('Y-m-d H:i:s'),
         ];
-        DB::table('case_register')->where('id', $caseID)->update($case_data);
+        DB::table('animal_register')->where('id', $caseID)->update($case_data);
 
         return response()->json(['success'=>'Data is successfully added','sfdata'=>'Data is successfully added']);
      } */

@@ -30,30 +30,7 @@ class ViewServiceProvider extends AppServiceProvider
         //     $view->with('users', $users);
         // });
 
-        view()->composer('at_case.at_case_register.create', function ($view)
-        {
-            $divisions = Division::all();
-            $districts = District::all();
-            $upazilas = Upazila::all();
-            $view->with([
-                'divisions' => $divisions,
-                'districts' => $districts,
-                'upazilas' => $upazilas
-            ]);
-        });
-
-
-        view()->composer('at_case.at_case_register.edit', function ($view)
-        {
-            $divisions = Division::all();
-            $districts = District::all();
-            $upazilas = Upazila::all();
-            $view->with([
-                'divisions' => $divisions,
-                'districts' => $districts,
-                'upazilas' => $upazilas
-            ]);
-        });
+       
 
         
         view()->composer('messages.inc.search', function ($view)
@@ -66,13 +43,7 @@ class ViewServiceProvider extends AppServiceProvider
             $divisions = DB::table('division')->select('id', 'division_name_bn')->get();
             $user_role = DB::table('role')->select('id', 'role_name')->get();
 
-            if($roleID == 5 || $roleID == 6 || $roleID == 7 || $roleID == 8 || $roleID == 13 || $roleID == 16){
-                $courts = DB::table('court')->select('id', 'court_name')->where('district_id', $officeInfo->district_id)->orWhere('district_id', NULL)->get();
-                $upazilas = DB::table('upazila')->select('id', 'upazila_name_bn')->where('district_id', $officeInfo->district_id)->get();
-
-            }elseif($roleID == 9 || $roleID == 10 || $roleID == 11 || $roleID == 12){
-                $courts = DB::table('court')->select('id', 'court_name')->where('district_id', $officeInfo->district_id)->orWhere('district_id', NULL)->get();
-            }
+            
 
             $gp_users = DB::table('users')->select('id', 'name')->where('role_id', 13)->get();
 
@@ -95,48 +66,23 @@ class ViewServiceProvider extends AppServiceProvider
             $roleID = Auth::user()->role_id;
             $districtID = Auth::user()->district_id;
 
-            if( $roleID == 9 || $roleID == 10 || $roleID == 11  || $roleID == 21 ){
+            if( $roleID == 2 || $roleID == 27 ) {
+                $CaseResultCount = DB::table('animal_register')
+                    ->get()
+                    ->count();
 
-                $case_status = DB::table('case_register')
-                    ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-                    ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-                    ->groupBy('case_register.cs_id')
-                    ->where('case_register.upazila_id','=', $officeInfo->upazila_id)
-                    ->where('case_register.action_user_group_id', $roleID)
-                    ->get();
                 
-
-            } elseif( $roleID == 2 || $roleID == 27 ) {
-                $total_sf_count = DB::table('case_register')
-                    ->where('is_sf', 1)
-                    ->where('status', 1)
-                    ->get()
-                    ->count();
-                $CaseResultCount = DB::table('case_register')
-                    ->where('status', '!=', 1)
-                    ->get()
-                    ->count();
-
-                $CaseHearingCount = DB::table('case_hearing')
-                    ->distinct()
-                    ->join('case_register', 'case_hearing.case_id', '=', 'case_register.id')
-                    ->where('case_register.status', 1)
-                    ->select('case_id')
-                    ->get()
-                    ->count();
 
                 
                 // dd($dfsdf);  
 
-                $notification_count = $CaseResultCount + $CaseHearingCount + $total_sf_count;
+                $notification_count = $CaseResultCount ;
             } else {
                 //for role id : 5,6,7,8,13
-                $case_status = DB::table('case_register')
-                    ->select('case_register.cs_id', 'case_status.status_name', DB::raw('COUNT(case_register.id) as total_case'))
-                    ->leftJoin('case_status', 'case_register.cs_id', '=', 'case_status.id')
-                    ->groupBy('case_register.cs_id')
-                    ->where('case_register.district_id','=', $officeInfo->district_id)
-                    ->where('case_register.action_user_group_id', $roleID)
+                $case_status = DB::table('animal_register')
+                    ->select('animal_register.type_id', DB::raw('COUNT(animal_register.id) as total_case'))
+                    ->where('animal_register.district_id','=', Auth::user()->district_id)
+                    ->where('animal_register.action_user_group_id', $roleID)
                     ->get();
                
 
@@ -156,9 +102,7 @@ class ViewServiceProvider extends AppServiceProvider
             } else {
                 $view->with([
                     'notification_count' => $notification_count,
-                    'CaseHearingCount' => $CaseHearingCount,
                     'CaseResultCount' => $CaseResultCount,
-                    'total_sf_count' => $total_sf_count,
                 ]);
             }
             //

@@ -31,6 +31,9 @@
         body, html {
            font-family: 'Kalpurush', Poppins, Helvetica, sans-serif;
         }
+        .col-md-6.mb-5 .card {
+            height: 550px;
+        }
     </style>
 @endsection
 @section('content')
