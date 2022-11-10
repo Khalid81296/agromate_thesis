@@ -46,52 +46,21 @@
             </tr>
          </thead>
          <tbody>
-            @foreach ($cases as $row)
+            @foreach ($animals as $row)
             
             <tr>
-               <td scope="row" class="tg-bn">{{ en2bn(++$i) }}.</td>
-               <td>{{ $row->case_number }}</td>
-               <td>{{ en2bn($row->case_date) }}</td>
-               <td>{{ isset($row->ct_id) ? $row->ct_name : '-'}}</td>
-               <td>{{ $row->upazila_name_bn }}</td>
-               <td>{{ $row->mouja_name_bn }}</td>
+               <td>{{ $row->id }}</td>
+               <td>{{ en2bn($row->birth_date) }}</td>
+               <td>{{ isset($row->type_id) ? $row->type_name : '-'}}</td>
 
                <td>
                   <div class="btn-group float-right">
                      <button class="btn btn-primary font-weight-bold btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">অ্যাকশন</button>
                      <div class="dropdown-menu">
-                        <a class="dropdown-item" href="{{ route('case.details', $row->id) }}">বিস্তারিত তথ্য</a>
+                        <a class="dropdown-item" href="{{ route('animal.details', $row->id) }}">বিস্তারিত তথ্য</a>
                            <!-- Edit Link -->
-                        @if (Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7 || Auth::user()->role_id == 8 || Auth::user()->role_id == 9)
-                           @if($row->status != 3)
-                           <a class="dropdown-item" href="{{ route('case.edit', $row->id) }}">সংশোধন করুন</a>
-                           @endif
-                        @endif
-                           <!-- //Edit Link -->
-                           <!-- Sending Action -->
-                        @if($row->is_old == 0)
-                           @if(Auth::user()->role_id == $row->action_user_group_id)
-                              @if($row->status != 3)
-                                 <a class="dropdown-item" href="{{ route('action.details', $row->id) }}">প্রেরণ করুন</a>
-                              @endif
-                           @endif
-                        @endif
-                           <!-- //Sending Action -->
-
-                        @if(Auth::user()->role_id == 5)
-                           @if($row->is_lost_appeal == 0)
-                              <div class="dropdown-divider"></div>
-                                 @if($row->status == 2)
-                                  <a class="dropdown-item alert alert-success" href="javascript:void(0)">আপিল করা হয়েছে</a>
-                                 @elseif($row->status == 3)
-                                 <a class="dropdown-item" href="{{ route('case.create_appeal', $row->id) }}">মোকদ্দমা আপিল করুন</a>
-                                 @endif
-                              </div>
-                           @endif
-                        @endif
+                        
                   </div>
-                  <!-- <a href="{{ route('case.details', $row->id) }}" class="btn btn-success btn-shadow btn-sm font-weight-bold pt-1 pb-1">বিস্তারিত </a>
-                  <a href="{{ route('case.edit', $row->id) }}" class="btn btn-success btn-shadow btn-sm font-weight-bold pt-1 pb-1">সংশোধন</a> -->
                </td>
             </tr>
             @endforeach
@@ -99,7 +68,7 @@
       </table>
 
       <div class="d-flex justify-content-center">
-         {!! $cases->links() !!}
+         {!! $animals->links() !!}
       </div>
    </div>
    <!--end::Card-->

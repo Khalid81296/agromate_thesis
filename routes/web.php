@@ -145,7 +145,7 @@ Route::middleware('auth')->group(function () {
 
     /////*************** Case Register *************/////
 	// Route::resource('case', AnimalRegisterController::class);
-    Route::get('/animal', [AnimalRegisterController::class, 'index'])->name('case');
+    Route::get('/animal', [AnimalRegisterController::class, 'index'])->name('animal');
     Route::get('/amimal/adult_ox', [AnimalRegisterController::class, 'running_case'])->name('animal.adult_ox');
 
        

@@ -22,7 +22,7 @@ class AnimalRegisterController extends Controller
         $roleID = Auth::user()->role_id;
         $query = DB::table('animal_register')
         ->orderBy('id','DESC')
-        ->leftjoin('animal_type', 'animal_register.ct_id', '=', 'animal_type.id')
+        ->leftjoin('animal_type', 'animal_register.type_id', '=', 'animal_type.id')
         ->select('animal_register.*', 'animal_type.type_name');
         //Add Conditions
         if(!empty($_GET['date_start'])  && !empty($_GET['date_end'])){
@@ -34,7 +34,7 @@ class AnimalRegisterController extends Controller
 
         // Check User Role ID
         if($roleID == 2 ){
-            $query->where('animal_register.district_id','=', $officeInfo->district_id);
+            $query->where('animal_register.district_id','=', Auth::user()->district_id);
         
         }
 
@@ -109,60 +109,81 @@ class AnimalRegisterController extends Controller
      */
     public function store(Request $request)
     {
-        return $request; 
+        // return $request; 
         if($request->animal_image != NULL){
             $fileName = Auth::user()->id.'_'.time().'.'.$request->animal_image->extension();
             $request->animal_image->move(public_path('uploads/animal_image/'), $fileName);
         }else{
             $fileName = NULL;
         }
+        // Convert DB date formate
+        $dob = $request->birth_date;
+        $dob_format = str_replace('/', '-', $dob);
+        // dd($dob_format);
+        $regDate = $request->farm_reg_date;
+        $regDate_format = str_replace('/', '-', $regDate);
 
-    $data = [
-        'cast_type'      => $request->animal_cast_type,
-        'action_user_group_id'   => Auth::user()->role_id,
-        'farm_reg_date'   => $request->farm_reg_date,
-        'type_id'   => $request->animal_type,
-        'purpose_type'   => $request->purpose_type,
-        'birth_date'   => $request->birth_date,
-        'weight'   => $request->weight,
-        'weight'   => $request->weight,
-        'child_amount'   => $request->child_amount,
-        'avg_milk_amount'   => $request->avg_milk_amount,
-        'anthrax'   => $request->anthrax,
-        'anthrax_date'   => $request->anthrax_date,
-        'haemorrahagic'   => $request->haemorrahagic,
-        'haemorrahagic_date'   => $request->haemorrahagic_date,
-        'black_quarter'   => $request->black_quarter,
-        'black_quarter_date'   => $request->black_quarter_date,
-        'khurarog'   => $request->khurarog,
-        'khurarog_date'   => $request->khurarog_date,
-        'rabies'   => $request->rabies,
-        'rabies_date'   => $request->rabies_date,
-        'animal_image'   => $fileName,
-        'user_id'   => Auth::user()->id,
-        'division_id'   => Auth::user()->division_id,
-        'district_id'   => Auth::user()->district_id,
-        'upazila_id'   => Auth::user()->upazila_id,
-        'upazila_id'   => Auth::user()->upazila_id,
-        'created_at'   => date('Y-m-d H:i:s'),
-    ];
-    $ID = DB::table('animal_register')->insertGetId($data);
-    $qrcodeName = Auth::user()->id.'_'.time().'.'.$ID. '_qrcode.png';
-    $qrcodeValue =  route('case.details', $ID) ;
+        $anthraxDate = $request->anthrax_date;
+        $anthraxDate_format = str_replace('/', '-', $anthraxDate);
+
+        $haemorrahagicDate = $request->haemorrahagic_date;
+        $haemorrahagicDate_format = str_replace('/', '-', $haemorrahagicDate);
+
+        $black_quarterDate = $request->black_quarter_date;
+        $black_quarterDate_format = str_replace('/', '-', $black_quarterDate);
+
+        $khurarogrDate = $request->khurarog_date;
+        $khurarogrDate_format = str_replace('/', '-', $khurarogrDate);
+
+        $rabiesDate = $request->rabies_date;
+        $rabiesDate_format = str_replace('/', '-', $rabiesDate);
+
+        $data = [
+            'cast_type'      => $request->animal_cast_type,
+            'action_user_group_id'   => Auth::user()->role_id,
+            'farm_reg_date'   => date("Y-m-d", strtotime($regDate_format)),
+            'type_id'   => $request->animal_type,
+            'purpose_type'   => $request->purpose_type,
+            'birth_date'   => date("Y-m-d", strtotime($dob_format)),
+            'weight'   => $request->weight,
+            'weight'   => $request->weight,
+            'child_amount'   => $request->child_amount,
+            'avg_milk_amount'   => $request->avg_milk_amount,
+            'anthrax'   => isset($request->anthrax) ? $request->anthrax : 0,
+            'anthrax_date'   => date("Y-m-d", strtotime($anthraxDate_format)),
+            'haemorrahagic'   => isset($request->haemorrahagic) ? $request->haemorrahagic : 0,
+            'haemorrahagic_date'   => date("Y-m-d", strtotime($haemorrahagicDate_format)),
+            'black_quarter'   => isset($request->black_quarter) ? $request->black_quarter : 0,
+            'black_quarter_date'   => date("Y-m-d", strtotime($black_quarterDate_format)),
+            'khurarog'   => isset($request->khurarog) ? $request->khurarog : 0,
+            'khurarog_date'   => date("Y-m-d", strtotime($khurarogrDate_format)),
+            'rabies'   => isset($request->rabies) ? $request->rabies : 0,
+            'rabies_date'   => date("Y-m-d", strtotime($rabiesDate_format)),
+            'animal_image'   => $fileName,
+            'user_id'   => Auth::user()->id,
+            'division_id'   => Auth::user()->division_id,
+            'district_id'   => Auth::user()->district_id,
+            'upazila_id'   => Auth::user()->upazila_id,
+            'upazila_id'   => Auth::user()->upazila_id,
+            'created_at'   => date('Y-m-d H:i:s'),
+        ];
+        $ID = DB::table('animal_register')->insertGetId($data);
+    /*$qrcodeName = Auth::user()->id.'_'.time().'.'.$ID;
+    $qrcodeValue =  route('animal.details', $ID) ;
 
     $qrcode = QrCode::size(500)
                 ->format('png')
-                ->generate($qrcodeValue, public_path('uploads/qr/'$qrcodeName));
+                ->generate($qrcodeValue, public_path('uploads/qr/'.$qrcodeName. '_qrcode.png'));
 
     if($qrcode){
         $qr_data = [
-            'qr_data' => $qrcodeName;
+            'qr_data' => $qrcodeName,
         ];
 
          DB::table('animal_register')
         ->where('id', $ID)
         ->update($qr_data);
-    }    
+    }    */
 
 
 
@@ -318,7 +339,7 @@ class AnimalRegisterController extends Controller
             'mouja' => 'required',
             // 'animal_type' => 'required',
             'case_no' => 'required',
-            'case_date' => 'required',
+            'birth_date' => 'required',
             'show_cause' => 'mimes:pdf|max:10240',
             ],
             [

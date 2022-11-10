@@ -29,42 +29,42 @@ $finished++;
    <div class="col-md-3">
       <div class="card-counter primary">
          <a href="{{ route('case') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case') }}"><?=en2bn($total_case)?></a></span>
+         <span class="count-numbers"><a href=""><?=en2bn($total_case)?></a></span>
          <span class="count-name"><a href="{{ route('case') }}">মোট পশুর তালিকা</a></span>
       </div>
    </div>
 
    <div class="col-md-3">
       <div class="card-counter danger">
-         <a href="{{ route('case.running') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.running') }}"><?=en2bn($running_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.running') }}">প্রাপ্ত বয়স্ক ষাঁড়ের তালিকা</a></span>
+         <a href=""><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href=""><?=en2bn($running_case)?></a></span>
+         <span class="count-name"><a href="">প্রাপ্ত বয়স্ক ষাঁড়ের তালিকা</a></span>
       </div>
    </div>
 
 
    <div class="col-md-3">
       <div class="card-counter success">
-         <a href="{{ route('case.complete') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.complete') }}"><?=en2bn($completed_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.complete') }}">প্রাপ্ত বয়স্ক গাভীর তালিকা</a></span>
+         <a href=""><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href=""><?=en2bn($completed_case)?></a></span>
+         <span class="count-name"><a href="">প্রাপ্ত বয়স্ক গাভীর তালিকা</a></span>
       </div>
    </div>
 
    <div class="col-md-3">
       <div class="card-counter info">
-         <a href="{{ route('case.appeal') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.appeal') }}"><?=en2bn($appeal_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.appeal') }}">এঁড়ে বাছুরের তালিকা</a></span>
+         <a href=""><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href=""><?=en2bn($appeal_case)?></a></span>
+         <span class="count-name"><a href="">এঁড়ে বাছুরের তালিকা</a></span>
       </div>
    </div>
 </div>
 <div class="row mb-5">
    <div class="col-md-3">
       <div class="card-counter violet">
-         <a href="{{ route('case.appeal') }}"><i class="fa fas fa-layer-group text-white"></i></a>
-         <span class="count-numbers"><a href="{{ route('case.appeal') }}"><?=en2bn($appeal_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case.appeal') }}">এঁবকনা বাছুরের তালিকা</a></span>
+         <a href=""><i class="fa fas fa-layer-group text-white"></i></a>
+         <span class="count-numbers"><a href=""><?=en2bn($appeal_case)?></a></span>
+         <span class="count-name"><a href="">এঁবকনা বাছুরের তালিকা</a></span>
       </div>
    </div>
 </div>
