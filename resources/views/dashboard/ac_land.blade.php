@@ -28,9 +28,9 @@ $finished++;
 <div class="row mb-5">
    <div class="col-md-3">
       <div class="card-counter primary">
-         <a href="{{ route('case') }}"><i class="fa fas fa-layer-group text-white"></i></a>
+         {{-- <a href="{{ route('case') }}"><i class="fa fas fa-layer-group text-white"></i></a> --}}
          <span class="count-numbers"><a href=""><?=en2bn($total_case)?></a></span>
-         <span class="count-name"><a href="{{ route('case') }}">মোট পশুর তালিকা</a></span>
+         {{-- <span class="count-name"><a href="{{ route('case') }}">মোট পশুর তালিকা</a></span> --}}
       </div>
    </div>
 
@@ -90,7 +90,7 @@ $finished++;
                         <span class="label label-xl label-danger h5">১০</span>
                      </span>
                   </a>
-               </li>        
+               </li>
                <li class="navi-item">
                  <a class="navi-link" href="#">
                      <span class="navi-icon"><i class="fas fa-folder-open icon-lg text-danger mr-3"></i></span>

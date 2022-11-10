@@ -148,7 +148,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/animal', [AnimalRegisterController::class, 'index'])->name('animal');
     Route::get('/amimal/adult_ox', [AnimalRegisterController::class, 'running_case'])->name('animal.adult_ox');
 
-       
+
     Route::get('/animal/add', [AnimalRegisterController::class, 'create']);
     Route::post('/animal/save', [AnimalRegisterController::class, 'store']);
     Route::get('/animal/details/{id}', [AnimalRegisterController::class, 'show'])->name('animal.details');
@@ -160,7 +160,7 @@ Route::middleware('auth')->group(function () {
     route::get('/case/dropdownlist/getdependentdistrict/{id}', [AnimalRegisterController::class , 'getDependentDistrict']);
     route::get('/case/dropdownlist/getdependentupazila/{id}', [AnimalRegisterController::class , 'getDependentUpazila']);
     route::get('/case/dropdownlist/getdependentmouja/{id}', [AnimalRegisterController::class , 'getDependentMouja']);
-    
+
 
 
     ////********************Other Case Register*****************************///
@@ -195,13 +195,13 @@ Route::middleware('auth')->group(function () {
     // Route::get('/my-profile', [MyprofileController::class, 'index'])->name('my-profile.index');
     /////************** Office Setting **************/////
     // Route::resource('office-setting', OfficeController::class);
-    
+
 
 
     /////************** Office_ULO Setting **************/////
     /////************** Court Setting **************/////
     // Route::resource('court-setting', CourtController::class);
-    
+
 
     /////************** General Setting **************/////
     // Route::resource('setting', SettingController::class);
@@ -222,7 +222,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings/mouja/edit/{id}', [SettingController::class, 'mouja_edit'])->name('mouja.edit');
     Route::post('/settings/mouja/save', [SettingController::class, 'mouja_save'])->name('mouja.save');
     Route::post('/settings/mouja/update/{id}', [SettingController::class, 'mouja_update'])->name('mouja.update');
-   
+
     /*Route::get('/survey/edit/{id}', [SettingController::class, 'survey_edit'])->name('survey.edit');
     Route::post('/survey/update/{id}', [SettingController::class, 'survey_update'])->name('survey.update');*/
      Route::get('/animal_type', [SettingController::class, 'animal_type_list'])->name('case-type');
@@ -277,6 +277,6 @@ Route::middleware('auth')->group(function () {
 
 
     //CivilSuit-v2 AT Case Route start from here
-   
+
     // URL::forceScheme('https');
 });

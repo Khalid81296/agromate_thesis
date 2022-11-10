@@ -6,7 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\AnimalRegister;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
+// use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use LaravelQRCode\Facades\QRCode;
 
 
 class AnimalRegisterController extends Controller
@@ -37,13 +38,13 @@ class AnimalRegisterController extends Controller
         // Check User Role ID
         if($roleID == 2 ){
             $query->where('animal_register.district_id','=', Auth::user()->district_id);
-        
+
         }
 
         $data['animals'] = $query->paginate(10)->withQueryString();
         $data['divisions'] = DB::table('division')->select('id', 'division_name_bn')->get();
-        
-        
+
+
         // $roleID = Auth::user()->role_id;
         // dd($data['courts']);
         // return $data;
@@ -69,7 +70,7 @@ class AnimalRegisterController extends Controller
             $dateTo =  date('Y-m-d', strtotime(str_replace('/', '-', $_GET['date_end'])));
             $query->whereBetween('animal_register.entry_date', [$dateFrom, $dateTo]);
         }
-       
+
 
         // Check User Role ID
         if($roleID == 2){
@@ -86,7 +87,7 @@ class AnimalRegisterController extends Controller
         // ->with('i', (request()->input('page',1) - 1) * 5);
     }
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -111,7 +112,8 @@ class AnimalRegisterController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request; 
+        // echo  QRCode::text('QR Code Generator for Laravel!')->png();
+        // return $request;
         if($request->animal_image != NULL){
             $fileName = Auth::user()->id.'_'.time().'.'.$request->animal_image->extension();
             $request->animal_image->move(public_path('uploads/animal_image/'), $fileName);
@@ -262,7 +264,7 @@ class AnimalRegisterController extends Controller
 
         // Dropdown List
         $data['divisions'] = DB::table('division')->select('id', 'division_name_bn')->get();
-        
+
         $data['districts'] = DB::table('district')->select('id', 'distritype_name_bn')->where('division_id' , $userDivision)->get();
         $data['upazilas'] = DB::table('upazila')->select('id', 'upazila_name_bn')->where('district_id', $userDistrict)->get();
         // dd( $data['upazilas']);
@@ -383,7 +385,7 @@ class AnimalRegisterController extends Controller
                 );
         }
 
-      
+
         //===================Bibadi=====================//
 
         // Bibadi
@@ -401,7 +403,7 @@ class AnimalRegisterController extends Controller
         }
 
 
-       
+
 
         //===================Survey=====================//
 
@@ -445,7 +447,7 @@ class AnimalRegisterController extends Controller
                     $othersFile->save();
                 }
             }
-       
+
 
         //========= Case Activity Log -  start ============
         $caseRegister = CaseRegister::findOrFail($id)->toArray();
@@ -498,7 +500,7 @@ class AnimalRegisterController extends Controller
      * @return \Illuminate\Http\Response
      */
     //============All Case list============//
-   
+
 
     public function getDependentDistrict($id)
     {
